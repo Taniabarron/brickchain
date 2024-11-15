@@ -1,6 +1,9 @@
+from django.shortcuts import render
+
+
 def index(request):
     values = {}
-    return values
+    return render(request, 'app/core/templates/home.html', values)
 
 def sing_in(request):
     values = {}
