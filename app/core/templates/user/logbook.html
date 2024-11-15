@@ -1,0 +1,28 @@
+{% extends "app/core/templates/tools/tables.html" %}
+{% load static %}
+
+{% block section %}
+Logbook
+{% endblock %}
+
+{% block filters_1 %}
+<div class="col-lg-3  mb-lg-0 mb-6">
+    <label>Activity:</label>
+    <select class="form-control datatable-input" id="kt_datatable_search_action">
+        <option value="">All</option>
+        {% for o in action %}
+        <option value = "{{o.action}}">{{ o.action }}</option>
+        {% endfor %}        						
+    </select>    
+</div>
+<div class="col-lg-3  mb-lg-0 mb-6">                            
+    <label >Date:</label>
+    <input class="form-control" type="text" placeholder="yyyy-mm-dd" id="kt_datatable_search_date"/>                                                       
+</div> 
+{% endblock %} 	
+
+{% block javascript %}
+<!--begin::Page Scripts(used by this page)-->
+		
+<!--end::Page Scripts-->
+{% endblock %}
