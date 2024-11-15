@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class CoreConfig(AppConfig):
-    name = 'app.core'
+class MarketplaceConfig(AppConfig):
+    name = 'app.marketplace'

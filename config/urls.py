@@ -22,12 +22,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     
     #core
-    path('', include('app.core.urls')), 
+    #path('', include('app.core.urls')), 
     #core
-    path('', include('app.marketplace.urls')), 
+    #path('', include('app.marketplace.urls')), 
     
-    path('', include('app.seller.urls')), 
+    #path('', include('app.seller.urls')), 
     
-    path('', include('app.buyer.urls')), 
+    #path('', include('app.buyer.urls')), 
     
 ]

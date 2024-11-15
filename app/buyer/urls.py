@@ -1,5 +1,5 @@
 from django.urls import path
-from app.core.views import *
+from app.buyer.views import *
 
 app_name = 'app.buyer'
 
