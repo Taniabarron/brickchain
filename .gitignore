@@ -1,0 +1,104 @@
+# Virtual environment
+venv/
+env/
+database/
+opt/
+# Compiled Python files
+**/__pycache__/
+**/migrations/
+*.pyc
+*.pyo
+
+# Local development settings
+*.db
+*.log
+
+# Media files (uploads)
+#media/
+
+# Static files (collected during deployment)
+staticfiles/
+
+# Compiled JavaScript
+*.js.map
+
+# Temporary files
+*.bak
+*.swp
+
+# macOS
+.DS_Store
+
+# Editors
+.vscode/
+.idea/
+
+# Dependency management
+pip-lock.txt
+pipenv.lock
+
+# Compiled translations
+locale/
+
+# Ignore sensitive configuration
+*.env
+*.ini
+*.conf
+
+# Ignore development artifacts
+*.bak
+*.swp
+
+# Ignore database backups
+*.backup
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore Heroku-related files
+Procfile
+runtime.txt
+
+# Ignore PyCharm settings
+.idea/
+*.iml
+
+# Ignore Visual Studio Code settings
+.vscode/
+
+# Ignore Pytest cache
+.cache/
+pytest_cache/
+
+# Ignore coverage reports
+htmlcov/
+.coverage
+.coverage.*
+*.pyc
+
+# Ignore node modules
+node_modules/
+
+# Ignore compiled CSS
+*.css.map
+
+# Ignore compiled SASS
+*.sass.map
+
+# Ignore Docker artifacts
+# docker-compose.yml
+# docker-compose.override.yml
+# Dockerfile
+
+# Ignore environment variables file
+#.env
+
+# Ignore Celery beat schedule
+celerybeat-schedule
+
+# Ignore Python virtual environment folders
+.python-version
+
+# Ignore Pipenv
+Pipfile
+Pipfile.lock
