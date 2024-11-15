@@ -86,9 +86,9 @@ node_modules/
 *.sass.map
 
 # Ignore Docker artifacts
-# docker-compose.yml
+docker-compose.yml
 # docker-compose.override.yml
-# Dockerfile
+Dockerfile
 
 # Ignore environment variables file
 #.env
