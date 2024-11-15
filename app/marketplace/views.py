@@ -1,6 +1,23 @@
-from django.urls import path
-from app.marketplace.views import *
+def marketplace(request):
+    values = {}
+    return values
 
-app_name = 'app.marketplace'
+def marketplace_resales(request):
+    values = {}
+    return values
 
-urlpatterns = []
+def resale_token(request):
+    values = {}
+    return values
+
+def offer_token(request):
+    values = {}
+    return values
+
+def transfer_token(request):
+    values = {}
+    return values
+
+def detail(request):
+    values = {}
+    return values
