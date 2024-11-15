@@ -10,7 +10,7 @@ RUN apk update \
 
 COPY ./requirements.txt ./
 
-RUN pip install -r requirements.txt2
+RUN pip install -r requirements.txt
 
 COPY ./ ./
 
