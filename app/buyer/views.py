@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
 from app.core.utilis import _decrypt
+from app.core.views import save_logbook
 from app.seller.models import *
 from app.buyer.models import Token
 
@@ -92,9 +93,29 @@ def detail(request, token):
 def buy_token(request):
     try:
         data = request.POST
-        print(data)
-        #change response
-        response = {"code": 200, "msg": "Successful purchase!"}
+        
+        #gas validation
+        
+        hast_tx = "0x000000"
+        id_chain = 1
+        if data.get('quantity'):
+            quantity = int(data.get('quantity'))
+            property = Property.objects.get(id=_decrypt(data.get('id')))
+            for q in range(quantity):
+                #Blockchain
+                
+                token = Token.objects.create(property=property,
+                                    user_id=request.user,
+                                    cost = property.cost,
+                                    status = True,
+                                    hast_tx=hast_tx,
+                                    id_chain=id_chain) 
+                
+            save_logbook("Buy token.", request.user.id) 
+            
+            response = {"code": 200, "msg": "Successful purchase!"}
+        else:
+            response = {"code": 401, "msg": "Some of the information contains invalid characters"}
     except Exception as e:
         print(e)
         response = {"code": 500, "msg": "We have not been able to complete your purchase"}
