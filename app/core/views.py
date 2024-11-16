@@ -13,7 +13,7 @@ from app.core.utilis import SendMailMailJet, _checkVarchar, render_template, val
 
 def index(request):
     values = {}
-    load_countries()
+    #load_countries()
     return render(request, 'app/core/templates/onboarding/index.html', values)
 
 def load_countries():
@@ -73,7 +73,6 @@ def account_create(request):
         response = {"code": 500, "msg": "We have not been able to create your user. 2"}
     return JsonResponse(response)
     
-
 @csrf_exempt
 def user_authenticate(request):
     try:
@@ -157,7 +156,6 @@ def change_password(request, token):
     else:
         #404 error page (no time)
         return redirect('/')
-
 
 def reset_password(request):
     data = request.POST
