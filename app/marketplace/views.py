@@ -128,10 +128,15 @@ def offer_token(request):
 
 @login_required
 def transfer_token(request):
-    values = {}
-    return values
+    try:
+        data = request.POST
+        print(data)
+        response = {"code": 200, "msg": "Some of the information contains invalid characters"}
+    except Exception as e:
+        print(e)
+        response = {"code": 500, "msg": "We have not been able to complete your purchase"}
+    return JsonResponse(response)
 
-@login_required
 @login_required
 def detail(request, token):
     data = []
@@ -155,8 +160,8 @@ def detail(request, token):
         val = 'hidden'
         valCart = ""
     
-    image = PropertyImages.objects.filter(property=p).order_by('timestamp').values('path')[:1]
-    country = Country.objects.get(code=p.country)
+    image = PropertyImages.objects.filter(property=p.token.property).order_by('timestamp').values('path')[:1]
+    country = Country.objects.get(code=p.token.property.country)
 
     data.append(
         {
@@ -188,4 +193,4 @@ def detail(request, token):
          "auction": auction
     }
 
-    return render(request, 'app/markerplace/templates/detail.html', response)
+    return render(request, 'app/marketplace/templates/detail.html', response)

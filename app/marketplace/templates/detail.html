@@ -67,8 +67,8 @@ Token
         </div>
         <!--end::Engage Widget 14-->
     </div>
-    <div class="col-md-5 col-lg-12 col-xxl-5">
-        <div class="card card-custom card-stretch card-stretch-half gutter-b" {{ a.Status }}>
+    <div class="col-md-5 col-lg-12 col-xxl-5" {{ a.StatusCart }} {{ a.SuperState }}>
+        <div class="card card-custom card-stretch gutter-b">
             <!--begin::Header-->
             <div class="card-header flex-wrap border-0 pt-5 pb-0">
                 <h4 class="card-title align-items-start flex-column">
@@ -99,7 +99,7 @@ Token
                                             <a href="#" class="text-dark text-hover-primary">Token {{ a.Type }}</a>
                                         </td>
                                         <td class="text-center align-middle">
-                                            <input id="touchspin" type="text" class="form-control text-center" name="quantity" value="0" placeholder="Select time"/>
+                                            <input disabled="disabled" type="text" class="form-control text-center" name="quantity" value="{{ a.Quintaty }}"/>
                                         </td>
                                         <td colspan="2" id="cost" value="{{ a.Cost }}" class="text-right align-middle font-weight-bolder font-size-h5">${{ a.Cost }}.00</td>
                                     </tr>
@@ -108,7 +108,7 @@ Token
                                     <tr>
                                         <td colspan="2"></td>
                                         <td class="font-weight-bolder font-size-h6 text-right">Subtotal</td>
-                                        <td id="subtotal" class="font-weight-bolder font-size-h6 text-right">$0.00</td>
+                                        <td id="subtotal" class="font-weight-bolder font-size-h6 text-right">${{ a.Cost }}.00</td>
                                     </tr>
                                     <tr>
                                         <td colspan="4" class="border-0 text-right">
@@ -126,6 +126,83 @@ Token
         <!--end::Section-->
 
     </div>
+    <div class="col-md-5 col-lg-12 col-xxl-5"  {{ a.Status }} {{ a.SuperState }}>
+        <div class="card card-custom card-stretch card-stretch gutter-b">
+            <!--begin::Header-->
+            <div class="card-header flex-wrap border-0 pt-6 pb-0">
+                <h3 class="card-title align-items-start flex-column">
+                    <span class="card-label font-weight-bolder font-size-h3 text-dark">Create a new offer </span>
+                </h3>
+                
+            </div>
+            <!--end::Header-->
+            <div class="card-body">
+                <!--begin::Shopping Cart-->
+                <div class="table-responsive">
+                    <form class="form" id="kt_form_offer">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label>New offer</label>
+                            <input type="number" class="form-control form-control-solid form-control-lg" name="offer_price" id="offer_price" placeholder="350" value="" />
+                            <span class="form-text text-muted">Please enter the offer for buy the token.</span>
+                        </div>
+                        <button type="button" onclick="offer_token('{{ a.Id }}');" class="btn btn-success">Send Offer</button>        
+                    </form>
+                </div>
+                <!--end::Shopping Cart-->
+            </div>
+        </div>
+        <!--end::Section-->
+    </div>
+    <div class="col-md-7 col-lg-12 col-xxl-7" {{ a.SuperState }}>
+        <!--begin::List Widget 20-->
+        <div class="card card-custom card-stretch gutter-b" {{ a.Status }}>
+           <!--begin::Header-->
+           <div class="card-header border-0 pt-6 mb-2">
+               <h3 class="card-title align-items-start flex-column">
+                   <span class="card-label font-weight-bold font-size-h4 text-dark-75 mb-3"> Last offers made</span>
+               </h3>
+           </div>
+           <!--end::Header-->
+           <!--begin::Body-->
+           <div class="card-body pt-2 ">
+               <!--begin::Table-->
+               <div class="table-responsive">
+                   <table class="table table-borderless mb-0">
+                       <tbody>
+                           <!--begin::Item-->
+                           {% for o in auction %}
+                           <tr>
+                               <!--begin::Icon-->
+                               <td class="align-middle w-50px pl-0 pr-2 pb-6">
+                                   <!--begin::Symbol-->
+                                   <div class="symbol symbol-50 symbol-light-success">
+                                       <div class="symbol-label"><span class="symbol-label font-size-h1 font-weight-bold">{{ o.User }}</span></div>
+                                   </div>
+                                   <!--end::Symbol-->
+                               </td>
+                               <!--end::Icon-->
+                               <!--begin::Content-->
+                               <td class="align-middle pb-6">
+                                   <div class="font-size-lg font-weight-bolder text-dark-75 mb-1 text-muted">Made an offer for {{ o.Price }} USD at {{ o.OfferDate }}</div>
+                               </td>
+                               <td class="align-middle pb-6">
+                                   <button type="button" {{a.ButtonState}} onclick="check_offer('{{ o.Id }}');" class="btn btn-success">Accept Offer</button> 
+                               </td>
+                              
+                               <!--end::Content-->
+                           </tr>
+                           {% endfor %} 
+                           <!--end::Item-->
+                       </tbody>
+                   </table>
+               </div>
+               <!--end::Table-->
+           </div>
+           <!--end::Body-->
+       </div>
+       <!--end::List Widget 20-->
+   </div> 
 </div>
 <!--end::Section-->
 {% endfor %} 
