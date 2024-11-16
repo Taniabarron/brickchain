@@ -13,6 +13,7 @@ def properties(request):
     data = []
     action = []
     action_unique = []
+    token_summary = []
     for p in Property.objects.filter(user_id=request.user).order_by("-timestamp"):
         
         if p.status:
@@ -41,10 +42,11 @@ def properties(request):
                 "Type": p.property_type,
             }
         )
+        
         if p.property_type not in action_unique:
             action_unique.append(p.property_type)
             action.append({'id': p.property_type, 'action': p.property_type})
-
+            
     response = {
         "templates": data,
         "action": action

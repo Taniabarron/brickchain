@@ -1,3 +1,5 @@
+from datetime import timedelta
+from itertools import groupby
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
@@ -27,7 +29,7 @@ def detail(request, token):
     counter = Token.objects.filter(property=p).count()
     stock = p.tokens - counter 
     sales = counter * p.cost
-    
+
     data.append(
         {
             "Id": token,
@@ -47,8 +49,40 @@ def detail(request, token):
         }
     )
     
+    if p.property_type not in action_unique:
+        action_unique.append(p.property_type)
+        action.append({'id': p.property_type, 'action': p.property_type})
+    
+    
+    tokens = Token.objects.filter(property=p).order_by("-timestamp")
+
+    for user_id, user_tokens in groupby(tokens, key=lambda t: t.user_id):
+            user_tokens = list(user_tokens)  
+            count = len(user_tokens)  
+            last_token = user_tokens[0] 
+
+            time_diff = timezone.now() - last_token.timestamp
+            if time_diff < timedelta(minutes=1):
+                time_ago = "less than a minute ago"
+            elif time_diff < timedelta(hours=1):
+                minutes = time_diff.seconds // 60
+                time_ago = f"{minutes} min ago"
+            elif time_diff < timedelta(days=1):
+                hours = time_diff.seconds // 3600
+                time_ago = f"{hours} hours ago"
+            else:
+                days = time_diff.days
+                time_ago = f"{days} days ago"
+
+            token_summary.append({
+                "Initial": user_id.first_name[0].upper(),
+                "Msg": " Purchased "+str(count)+" tokens "+ time_ago,
+            })
+    
     response = {
          "templates": data,
+         "list": token_summary,
+         "action": action
     }
 
     return render(request, 'app/buyer/templates/detail.html', response)
