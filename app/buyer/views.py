@@ -132,7 +132,7 @@ def buy_token(request):
     try:
         data = request.POST
         
-        #gas validation
+        #gas check #blockchain
         
         hast_tx = "0x000000"
         id_chain = 1

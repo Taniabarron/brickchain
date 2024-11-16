@@ -3,6 +3,7 @@ function check_token(id) {
     formData.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val()); 
     formData.append("quantity", $('#touchspin').val());
     formData.append("id", id);
+    formData.append("final_price", document.getElementById("cost").getAttribute("value"));
     Swal.fire({
         title: "Are you sure you want to buy these tokens?",
         showCancelButton: true,
