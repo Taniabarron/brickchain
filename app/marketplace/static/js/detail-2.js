@@ -54,6 +54,37 @@ function buy_resale_token(formData) {
     });
 }
 
+function check_offer(id) {
+    var formData = new FormData();
+    formData.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val()); 
+    formData.append("id", id);
+    formData.append("offer", true);
+    Swal.fire({
+        title: "Are you sure you want to accept this offer?",
+        showCancelButton: true,
+        confirmButtonText: "Confirm",
+        cancelButtonText: "Cancel",
+        reverseButtons: true
+    }).then(function(result) {
+        if (result.value) {
+            // Si el usuario confirma, mostrar un mensaje de validación y llamar a buy_token
+            Swal.fire({
+                text: "Validating information",                                
+                timer: 1000,
+                onOpen: function() {
+                    Swal.showLoading();
+                }
+            }).then(function() {
+                // Llama a buy_token después de la validación
+                buy_resale_token(formData);
+            });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            // Si el usuario cancela, puedes ejecutar alguna acción opcional
+            console.log("Compra cancelada");
+        }
+    });
+}
+
 
 function offer_token(id) {
     var formData = new FormData();

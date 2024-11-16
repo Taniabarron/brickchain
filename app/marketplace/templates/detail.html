@@ -143,7 +143,7 @@ Token
                         {% csrf_token %}
                         <div class="form-group">
                             <label>New offer</label>
-                            <input type="number" class="form-control form-control-solid form-control-lg" name="offer_price" id="offer_price" placeholder="350" value="" />
+                            <input type="number" class="form-control form-control-solid form-control-lg" name="offer_price" id="offer_price" placeholder="{{ a.Cost }}" value="" />
                             <span class="form-text text-muted">Please enter the offer for buy the token.</span>
                         </div>
                         <button type="button" onclick="offer_token('{{ a.Id }}');" class="btn btn-success">Send Offer</button>        
