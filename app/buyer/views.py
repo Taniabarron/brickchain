@@ -134,13 +134,14 @@ def buy_token(request):
         
         #gas check #blockchain
         
-        hast_tx = "0x000000"
-        id_chain = 1
+        
         if data.get('quantity'):
             quantity = int(data.get('quantity'))
             property = Property.objects.get(id=_decrypt(data.get('id')))
             for q in range(quantity):
                 #Blockchain
+                hast_tx = "0x000000"
+                id_chain = 1
                 
                 token = Token.objects.create(property=property,
                                     user_id=request.user,
