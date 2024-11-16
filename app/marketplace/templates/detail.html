@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block section %}
-Tokens
+Token
 {% endblock %}
 
 {% block content %}
@@ -57,26 +57,8 @@ Tokens
                     </div>
                     <div class="col-6 col-md-4">
                         <div class="mb-8 d-flex flex-column">
-                            <span class="text-dark font-weight-bold mb-4">Tokens</span>
-                            <span class="text-muted font-weight-bolder font-size-lg">{{ a.Tokens }}</span>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4">
-                        <div class="mb-8 d-flex flex-column">
-                            <span class="text-dark font-weight-bold mb-4">In Stock</span>
-                            <span class="text-muted font-weight-bolder font-size-lg">{{ a.Stock }}</span>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4">
-                        <div class="mb-8 d-flex flex-column">
-                            <span class="text-dark font-weight-bold mb-4">Sold Tokens</span>
-                            <span class="text-muted font-weight-bolder font-size-lg">{{ a.Items }}</span>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4">
-                        <div class="mb-8 d-flex flex-column">
-                            <span class="text-dark font-weight-bold mb-4">Total Sales</span>
-                            <span class="text-muted font-weight-bolder font-size-lg">${{ a.Sales }}</span>
+                            <span class="text-dark font-weight-bold mb-4">Seller</span>
+                            <span class="text-muted font-weight-bolder font-size-lg">{{ a.Seller }}</span>
                         </div>
                     </div>
                     <!--end::Info-->
@@ -142,50 +124,7 @@ Tokens
             </div>
         </div>
         <!--end::Section-->
-        <!--begin::List Widget 20-->
-        <div class="card card-custom card-stretch card-stretch-half gutter-b">
-            <!--begin::Header-->
-            <div class="card-header border-0 pt-6 mb-2">
-                <h3 class="card-title align-items-start flex-column">
-                    <span class="card-label font-weight-bold font-size-h4 text-dark-75 mb-3">Latest Sales</span>
-                    <span class="text-muted font-weight-bold font-size-sm">More than 400+ new members</span>
-                </h3>
-            </div>
-            <!--end::Header-->
-            <!--begin::Body-->
-            <div class="card-body pt-2">
-                <!--begin::Table-->
-                <div class="table-responsive">
-                    <table class="table table-borderless mb-0">
-                        <tbody>
-                            <!--begin::Item-->
-                            {% for l in list %}
-                            <tr>
-                                <!--begin::Icon-->
-                                <td class="align-middle w-50px pl-0 pr-2 pb-6">
-                                    <!--begin::Symbol-->
-                                    <div class="symbol symbol-50 symbol-light-success">
-                                        <div class="symbol-label"><span class="symbol-label font-size-h1 font-weight-bold">{{ l.Initial }}</span></div>
-                                    </div>
-                                    <!--end::Symbol-->
-                                </td>
-                                <!--end::Icon-->
-                                <!--begin::Content-->
-                                <td class="align-middle pb-6">
-                                    <div class="font-size-lg font-weight-bolder text-dark-75 mb-1 text-muted">{{ l.Msg }}</div>
-                                </td>
-                                <!--end::Content-->
-                            </tr>
-                            {% endfor %} 
-                            <!--end::Item-->
-                        </tbody>
-                    </table>
-                </div>
-                <!--end::Table-->
-            </div>
-            <!--end::Body-->
-        </div>
-        <!--end::List Widget 20-->
+
     </div>
 </div>
 <!--end::Section-->
@@ -194,6 +133,6 @@ Tokens
 
 {% block javascript %}
 <!--begin::Page Scripts(used by this page)-->
-<script src="{% static 'app/buyer/static/js/detail-2.js' %}"></script> 
+<script src="{% static 'app/marketplace/static/js/detail-1.js' %}"></script> 
 <!--end::Page Scripts-->
 {% endblock %}
