@@ -99,7 +99,6 @@ def marketplace_resales(request):
     }
     return render(request, 'app/marketplace/templates/marketplace-resales.html', response)
 
-
 @login_required
 def resale_token(request):
     try:
@@ -123,8 +122,14 @@ def resale_token(request):
 
 @login_required
 def offer_token(request):
-    values = {}
-    return values
+    try:
+        data = request.POST
+        print(data)
+        response = {"code": 200, "msg": "Some of the information contains invalid characters"}
+    except Exception as e:
+        print(e)
+        response = {"code": 500, "msg": "We have not been able to complete your purchase"}
+    return JsonResponse(response)
 
 @login_required
 def transfer_token(request):
