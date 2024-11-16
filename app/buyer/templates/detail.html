@@ -88,11 +88,10 @@ Tokens
     <div class="col-md-5 col-lg-12 col-xxl-5">
         <div class="card card-custom card-stretch card-stretch-half gutter-b" {{ a.Status }}>
             <!--begin::Header-->
-            <div class="card-header flex-wrap border-0 pt-6 pb-0">
-                <h3 class="card-title align-items-start flex-column">
+            <div class="card-header flex-wrap border-0 pt-5 pb-0">
+                <h4 class="card-title align-items-start flex-column">
                     <span class="card-label font-weight-bolder font-size-h3 text-dark">My Shopping Cart</span>
-                </h3>
-                
+                </h4>
             </div>
             <!--end::Header-->
             <div class="card-body" >
@@ -126,12 +125,12 @@ Tokens
                                     <!--begin::Cart Footer-->
                                     <tr>
                                         <td colspan="2"></td>
-                                        <td class="font-weight-bolder font-size-h4 text-right">Subtotal</td>
-                                        <td id="subtotal" class="font-weight-bolder font-size-h4 text-right">$0.00</td>
+                                        <td class="font-weight-bolder font-size-h6 text-right">Subtotal</td>
+                                        <td id="subtotal" class="font-weight-bolder font-size-h6 text-right">$0.00</td>
                                     </tr>
                                     <tr>
                                         <td colspan="4" class="border-0 text-right">
-                                            <button type="button" onclick="check_token('{{ a.Id }}');" class="btn btn-success">Proceed to Checkout</button>
+                                            <button type="button" onclick="check_token('{{ a.Id }}');" class="btn btn-success">Purchase</button>
                                         </td>
                                     </tr>
                                     <!--end::Cart Footer-->
@@ -194,5 +193,7 @@ Tokens
 {% endblock %}
 
 {% block javascript %}
-
+<!--begin::Page Scripts(used by this page)-->
+<script src="{% static 'app/buyer/static/js/detail-2.js' %}"></script> 
+<!--end::Page Scripts-->
 {% endblock %}
