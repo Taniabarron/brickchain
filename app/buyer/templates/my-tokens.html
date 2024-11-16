@@ -47,7 +47,7 @@ My Tokens
                 <div class="mb-11">
                     <!--begin::Heading-->
                     <div class="d-flex justify-content-between align-items-center mb-7">
-                        <h2 class="font-weight-bolder text-dark font-size-h3 mb-0">Property List</h2>
+                        <h2 class="font-weight-bolder text-dark font-size-h3 mb-0">Tokens List</h2>
                     </div>
                     <!--end::Heading-->
                     <!--begin::Products-->
@@ -55,38 +55,53 @@ My Tokens
                         <!--begin::Product-->
                         {% for t in templates %}
                         <p></p>
+                        <!-- Modal-->
+                        <div class="modal fade" id="exampleModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModal" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Resale your token</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <i aria-hidden="true" class="ki ki-close"></i>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="form" id="kt_form">
+                                            {% csrf_token %}
+                                            <label>New price</label>
+                                            <input type="number" class="form-control form-control-solid form-control-lg" name="price" placeholder="500" value="" />
+                                            </br>
+                                            <label>Auction </label>
+                                            <span class="switch">
+                                                <label>
+                                                <input type="checkbox" name="auction"/>
+                                                <span></span>
+                                                </label>
+                                            </span>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
+                                        <button type="button" onclick="check_token();" class="btn btn-primary font-weight-bold">Confirm</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-md-4 col-xxl-4 col-lg-12" style="padding: 10px">
                             <!--begin::Card-->
                             <div class="card card-custom card-shadowless">
                                 <div class="card-body p-0">
                                     <!--begin::Image-->
-                                    <ul class="nav nav-light-info  nav-pills nav-fill" id="myTab" role="tablist">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" href="#" tabindex="-1" aria-disabled="true" >{{ t.Type}}</a>
-                                        </li>
-                                        <li class="nav-item"></li>
-                                        <li class="nav-item"></li>
-                                        <li class="nav-item"></li>
-                                        <li class="nav-item"><a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Publish</a></li> 
-                                        <li class="nav-item">
-                                            <span class="switch switch-sm">
-                                                <label>
-                                                {% csrf_token %}
-                                                <input type="checkbox" {{ t.Status}} name="select" id="toggleSwitch" onchange="onSwitch(this, '{{t.Id}}')"/>
-                                                <span></span>
-                                                </label>
-                                            </span>
-                                        </li>
-                                        
-                                    </ul>
-                                             
+                                    <span class="label label-light-{{ t.Color }} label-inline font-weight-bold ">{{ t.Status}}</span>
+                                    <span class="label label-light-primary label-inline font-weight-bold ">{{ t.Type}}</span>
                                     <p></p>
                                     <div class="overlay">
                                         <div class="overlay-wrapper rounded bg-light text-center">
                                             <img src="/static/app/media/{{ t.Image }}" alt="" class="card-img-top" style="max-height: 200px; object-fit: cover;"/>
                                         </div>
                                         <div class="overlay-layer">
-                                            <a href="{% url 'app.buyer:detail' token=t.Id %}" class="btn font-weight-bolder btn-sm btn-primary mr-2">Detail View</a>
+                                            <a href="#" class="btn font-weight-bolder btn-sm btn-primary mr-2">Detail view</a>
+                                            <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn font-weight-bolder btn-sm btn-light-primary" data-id="{{ t.Id }}">Resale</button>
                                         </div>
                                     </div>
                                     <!--end::Image-->
@@ -96,7 +111,7 @@ My Tokens
                                         <span class="font-size-lg">{{ t.Address }}</span>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-cente my-1">
-                                        <span class="text-dark-75 font-weight-bolder mr-2">Create Date:</span>
+                                        <span class="text-dark-75 font-weight-bolder mr-2">Purchase date:</span>
                                         <a href="#" class="text-muted text-hover-primary">{{ t.CreateDate}}</a>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center">
@@ -104,8 +119,8 @@ My Tokens
                                         <a href="#" class="text-muted text-hover-primary">{{ t.Country}}</a>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-right">
-                                        <span class="text-dark-75 font-weight-bolder mr-2">Avaible tokens:</span>
-                                        <a href="#" class="text-muted text-hover-primary align-right">{{ t.Stock }}/{{ t.Tokens }}</a>                        
+                                        <span class="text-dark-75 font-weight-bolder mr-2">Cost:</span>
+                                        <a href="#" class="text-muted text-hover-primary align-right">{{ t.Cost }}</a>                        
                                     </div>
                                     <!--end::Details-->
                                 </div>
@@ -130,6 +145,6 @@ My Tokens
 
 {% block javascript %}
 <!--begin::Page Scripts(used by this page)-->
-<script src="{% static 'app/seller/static/js/properties-2.js' %}"></script> 
+<script src="{% static 'app/marketplace/static/js/resale-1.js' %}"></script> 
 <!--end::Page Scripts-->
 {% endblock %}
