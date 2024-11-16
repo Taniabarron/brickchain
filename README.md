@@ -56,7 +56,6 @@ To get the system up with Docker, follow these steps:
     python manage.py showmigrations
     python manage.py migrate
     ```
-
 6. **Command for single module migrations** (if necessary):
 
     ```bash
@@ -64,3 +63,6 @@ To get the system up with Docker, follow these steps:
     python manage.py makemigrations marketplace
     python manage.py migrate
     ```
+
+## Smart Contract
+Check the next link: https://github.com/Taniabarron/brickchain-sc
