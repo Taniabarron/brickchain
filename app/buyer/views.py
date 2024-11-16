@@ -47,10 +47,10 @@ def tokens(request):
                 action_unique.append(p.property_type)
                 action.append({'id': p.property_type, 'action': p.property_type})
                 
-        response = {
+    response = {
             "templates": data,
             "action": action
-        }
+    }
     return render(request, 'app/buyer/templates/my-tokens.html', response)
 
 @login_required
