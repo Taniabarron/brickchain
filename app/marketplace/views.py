@@ -124,8 +124,24 @@ def resale_token(request):
 def offer_token(request):
     try:
         data = request.POST
-        print(data)
-        response = {"code": 200, "msg": "Some of the information contains invalid characters"}
+        
+        #validations
+        if data.get('id'):
+            resale = Resale.objects.get(id=_decrypt(data.get('id')))
+            if int(data.get('offer_price')) <= resale.publish_price:
+                response = {"code": 401, "msg": "Your offer cannot be lower than the price set by the seller."}
+            else:
+                resale = Offers.objects.create(resale=resale,
+                                        price=data.get('offer_price'),
+                                        status=False,
+                                        user_id=request.user) 
+                    
+                save_logbook("Create a offer for one token.", request.user.id) 
+                
+                #change response
+                response = {"code": 200, "msg": "Successful offer!"}
+        else:
+            response = {"code": 401, "msg": "Some of the information contains invalid characters"}
     except Exception as e:
         print(e)
         response = {"code": 500, "msg": "We have not been able to complete your purchase"}
