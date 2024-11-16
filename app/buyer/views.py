@@ -161,10 +161,50 @@ def buy_token(request):
 @login_required
 @csrf_exempt
 def get_resale(request):
-    values = {}
-    return values
+    list = Token.objects.filter(resale__isnull=False, user_id=request.user.id).distinct()
+    size = len(list)
+    response = {"meta": {
+        "page": 1,
+        "pages": size / 10,
+        "perpage": -1,
+        "total": size,
+        "sort": "asc",
+        "field": "RecordID"}
+    }
+    data = []
+    for r in list:
+        resale_status = r.resale_set.first().status if r.resale_set.exists() else None
+        publish_price = r.resale_set.first().publish_price if r.resale_set.exists() else None
+        action = r.resale_set.first().auction if r.resale_set.exists() else None
+        data.append({'RecordID': r.resale_set.first().id,
+                     'ResaleID': _encrypt(r.resale_set.first().id),
+                     'Property': r.property.title,
+                     'Cost': r.property.cost,
+                     'Publish': publish_price,
+                     'IdChain': r.id_chain,
+                     'Auction': "Active" if action else "Desactive",
+                     'Status': "Open" if resale_status else "Close",
+                     'Action': "" if resale_status else "hidden",
+                     'ShipDate': r.timestamp})
+    response.update({'data': data})
+    return JsonResponse(response)
 
 @login_required
 def cancel_resale(request):
-    values = {}
-    return values
+    try:
+        data = request.POST
+        #validations
+        if data.get('id'):
+            print(data.get('id'))
+            resale = Resale.objects.get(id=data.get('id'))
+            resale.delete()
+            
+            save_logbook("Cancel a resale.", request.user.id) 
+            
+            response = {"code": 200, "msg": "Chage status successful!"}
+        else:
+            response = {"code": 401, "msg": "Some of the information contains invalid characters"}
+    except Exception as e:
+        print(e)
+        response = {"code": 500, "msg": "We have not been able to complete your offer"}
+    return JsonResponse(response)
