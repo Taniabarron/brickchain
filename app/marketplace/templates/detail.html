@@ -1,7 +1,7 @@
 {% extends "app/core/templates/base/base.html" %}
 {% load static %}
 
-{% block title %} Dashboard {% endblock %}
+{% block title %} Detail {% endblock %}
 
 {% block head %}
 
@@ -12,9 +12,188 @@ Tokens
 {% endblock %}
 
 {% block content %}
-<h1> hola </h1>
+<!--begin::Section-->
+{% for a in templates %}
+<div class="row">
+    <div class="col-md-7 col-lg-12 col-xxl-7">
+        <!--begin::Engage Widget 14-->
+        <div class="card card-custom card-stretch gutter-b">
+            <div class="card-body p-15 pb-20">
+                <div class="row mb-17">
+                    <div class="col-xxl-5 mb-11 mb-xxl-0">
+                        <!--begin::Image-->
+                        <div class="card card-custom card-stretch">
+                            <div class="card-body p-0 rounded px-10 py-15 d-flex align-items-center justify-content-center" style="background-color: #FFFFFF;">
+                                <img src="/static/app/media/{{ a.Image }}" class="mw-100 w-200px" style="transform: scale(1.3);" />
+                            </div>
+                        </div>
+                        <!--end::Image-->
+                    </div>
+                    <div class="col-xxl-7 pl-xxl-11">
+                        <h2 class="font-weight-bolder text-dark mb-7" style="font-size: 32px;">{{ a.Title }}</h2>
+                        <div class="font-size-h2 mb-7 text-dark-50">From
+                        <span class="text-info font-weight-boldest ml-2">{{ a.Cost }} USDT</span></div>
+                        <div class="line-height-xl">{{ a.Description }}</div>
+                    </div>
+                    </br>
+                    <div class="font-weight-boldest">Location: {{ a.Address }}</div>
+                    </br>
+                </div>
+                
+                <div class="row mb-6">
+                    <!--begin::Info-->
+                   
+                    <div class="col-6 col-md-4">
+                        <div class="mb-8 d-flex flex-column">
+                            <span class="text-dark font-weight-bold mb-4">Country</span>
+                            <span class="text-muted font-weight-bolder font-size-lg">{{ a.Country }}</span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <div class="mb-8 d-flex flex-column">
+                            <span class="text-dark font-weight-bold mb-4">Create Date</span>
+                            <span class="text-muted font-weight-bolder font-size-lg">{{ a.CreateDate }}</span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <div class="mb-8 d-flex flex-column">
+                            <span class="text-dark font-weight-bold mb-4">Tokens</span>
+                            <span class="text-muted font-weight-bolder font-size-lg">{{ a.Tokens }}</span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <div class="mb-8 d-flex flex-column">
+                            <span class="text-dark font-weight-bold mb-4">In Stock</span>
+                            <span class="text-muted font-weight-bolder font-size-lg">{{ a.Stock }}</span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <div class="mb-8 d-flex flex-column">
+                            <span class="text-dark font-weight-bold mb-4">Sold Tokens</span>
+                            <span class="text-muted font-weight-bolder font-size-lg">{{ a.Items }}</span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <div class="mb-8 d-flex flex-column">
+                            <span class="text-dark font-weight-bold mb-4">Total Sales</span>
+                            <span class="text-muted font-weight-bolder font-size-lg">${{ a.Sales }}</span>
+                        </div>
+                    </div>
+                    <!--end::Info-->
+                </div>
+            </div>
+        </div>
+        <!--end::Engage Widget 14-->
+    </div>
+    <div class="col-md-5 col-lg-12 col-xxl-5">
+        <div class="card card-custom card-stretch card-stretch-half gutter-b" {{ a.Status }}>
+            <!--begin::Header-->
+            <div class="card-header flex-wrap border-0 pt-5 pb-0">
+                <h4 class="card-title align-items-start flex-column">
+                    <span class="card-label font-weight-bolder font-size-h3 text-dark">My Shopping Cart</span>
+                </h4>
+            </div>
+            <!--end::Header-->
+            <div class="card-body" >
+                <!--begin::Shopping Cart-->
+                <div class="table-responsive">
+                        <table class="table">
+                            <!--begin::Cart Header-->
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th class="text-center">Qty</th>
+                                    <th class="text-right">Price</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <!--end::Cart Header-->
+                            <tbody>
+                                <form class="form" id="kt_form">
+                                    {% csrf_token %}
+                                    <!--begin::Cart Content-->
+                                    <tr>
+                                        <td class="d-flex align-items-center font-weight-bolder">
+                                            <a href="#" class="text-dark text-hover-primary">Token {{ a.Type }}</a>
+                                        </td>
+                                        <td class="text-center align-middle">
+                                            <input id="touchspin" type="text" class="form-control text-center" name="quantity" value="0" placeholder="Select time"/>
+                                        </td>
+                                        <td colspan="2" id="cost" value="{{ a.Cost }}" class="text-right align-middle font-weight-bolder font-size-h5">${{ a.Cost }}.00</td>
+                                    </tr>
+                                    <!--end::Cart Content-->
+                                    <!--begin::Cart Footer-->
+                                    <tr>
+                                        <td colspan="2"></td>
+                                        <td class="font-weight-bolder font-size-h6 text-right">Subtotal</td>
+                                        <td id="subtotal" class="font-weight-bolder font-size-h6 text-right">$0.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" class="border-0 text-right">
+                                            <button type="button" onclick="check_token('{{ a.Id }}');" class="btn btn-success">Purchase</button>
+                                        </td>
+                                    </tr>
+                                    <!--end::Cart Footer-->
+                                </form>
+                            </tbody>
+                        </table>
+                </div>
+                <!--end::Shopping Cart-->
+            </div>
+        </div>
+        <!--end::Section-->
+        <!--begin::List Widget 20-->
+        <div class="card card-custom card-stretch card-stretch-half gutter-b">
+            <!--begin::Header-->
+            <div class="card-header border-0 pt-6 mb-2">
+                <h3 class="card-title align-items-start flex-column">
+                    <span class="card-label font-weight-bold font-size-h4 text-dark-75 mb-3">Latest Sales</span>
+                    <span class="text-muted font-weight-bold font-size-sm">More than 400+ new members</span>
+                </h3>
+            </div>
+            <!--end::Header-->
+            <!--begin::Body-->
+            <div class="card-body pt-2">
+                <!--begin::Table-->
+                <div class="table-responsive">
+                    <table class="table table-borderless mb-0">
+                        <tbody>
+                            <!--begin::Item-->
+                            {% for l in list %}
+                            <tr>
+                                <!--begin::Icon-->
+                                <td class="align-middle w-50px pl-0 pr-2 pb-6">
+                                    <!--begin::Symbol-->
+                                    <div class="symbol symbol-50 symbol-light-success">
+                                        <div class="symbol-label"><span class="symbol-label font-size-h1 font-weight-bold">{{ l.Initial }}</span></div>
+                                    </div>
+                                    <!--end::Symbol-->
+                                </td>
+                                <!--end::Icon-->
+                                <!--begin::Content-->
+                                <td class="align-middle pb-6">
+                                    <div class="font-size-lg font-weight-bolder text-dark-75 mb-1 text-muted">{{ l.Msg }}</div>
+                                </td>
+                                <!--end::Content-->
+                            </tr>
+                            {% endfor %} 
+                            <!--end::Item-->
+                        </tbody>
+                    </table>
+                </div>
+                <!--end::Table-->
+            </div>
+            <!--end::Body-->
+        </div>
+        <!--end::List Widget 20-->
+    </div>
+</div>
+<!--end::Section-->
+{% endfor %} 
 {% endblock %}
 
 {% block javascript %}
-
+<!--begin::Page Scripts(used by this page)-->
+<script src="{% static 'app/buyer/static/js/detail-2.js' %}"></script> 
+<!--end::Page Scripts-->
 {% endblock %}
