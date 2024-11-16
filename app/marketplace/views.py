@@ -1,6 +1,10 @@
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+
+@login_required
 def marketplace(request):
-    values = {}
-    return values
+    response = {}
+    return render(request, 'app/marketplace/templates/marketplace.html', response)
 
 def marketplace_resales(request):
     values = {}
