@@ -85,7 +85,109 @@ Tokens
         </div>
         <!--end::Engage Widget 14-->
     </div>
-
+    <div class="col-md-5 col-lg-12 col-xxl-5">
+        <div class="card card-custom card-stretch card-stretch-half gutter-b" {{ a.Status }}>
+            <!--begin::Header-->
+            <div class="card-header flex-wrap border-0 pt-6 pb-0">
+                <h3 class="card-title align-items-start flex-column">
+                    <span class="card-label font-weight-bolder font-size-h3 text-dark">My Shopping Cart</span>
+                </h3>
+                
+            </div>
+            <!--end::Header-->
+            <div class="card-body" >
+                <!--begin::Shopping Cart-->
+                <div class="table-responsive">
+                        <table class="table">
+                            <!--begin::Cart Header-->
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th class="text-center">Qty</th>
+                                    <th class="text-right">Price</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <!--end::Cart Header-->
+                            <tbody>
+                                <form class="form" id="kt_form">
+                                    {% csrf_token %}
+                                    <!--begin::Cart Content-->
+                                    <tr>
+                                        <td class="d-flex align-items-center font-weight-bolder">
+                                            <a href="#" class="text-dark text-hover-primary">Token {{ a.Type }}</a>
+                                        </td>
+                                        <td class="text-center align-middle">
+                                            <input id="touchspin" type="text" class="form-control text-center" name="quantity" value="0" placeholder="Select time"/>
+                                        </td>
+                                        <td colspan="2" id="cost" value="{{ a.Cost }}" class="text-right align-middle font-weight-bolder font-size-h5">${{ a.Cost }}.00</td>
+                                    </tr>
+                                    <!--end::Cart Content-->
+                                    <!--begin::Cart Footer-->
+                                    <tr>
+                                        <td colspan="2"></td>
+                                        <td class="font-weight-bolder font-size-h4 text-right">Subtotal</td>
+                                        <td id="subtotal" class="font-weight-bolder font-size-h4 text-right">$0.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" class="border-0 text-right">
+                                            <button type="button" onclick="check_token('{{ a.Id }}');" class="btn btn-success">Proceed to Checkout</button>
+                                        </td>
+                                    </tr>
+                                    <!--end::Cart Footer-->
+                                </form>
+                            </tbody>
+                        </table>
+                </div>
+                <!--end::Shopping Cart-->
+            </div>
+        </div>
+        <!--end::Section-->
+        <!--begin::List Widget 20-->
+        <div class="card card-custom card-stretch card-stretch-half gutter-b">
+            <!--begin::Header-->
+            <div class="card-header border-0 pt-6 mb-2">
+                <h3 class="card-title align-items-start flex-column">
+                    <span class="card-label font-weight-bold font-size-h4 text-dark-75 mb-3">Latest Sales</span>
+                    <span class="text-muted font-weight-bold font-size-sm">More than 400+ new members</span>
+                </h3>
+            </div>
+            <!--end::Header-->
+            <!--begin::Body-->
+            <div class="card-body pt-2">
+                <!--begin::Table-->
+                <div class="table-responsive">
+                    <table class="table table-borderless mb-0">
+                        <tbody>
+                            <!--begin::Item-->
+                            {% for l in list %}
+                            <tr>
+                                <!--begin::Icon-->
+                                <td class="align-middle w-50px pl-0 pr-2 pb-6">
+                                    <!--begin::Symbol-->
+                                    <div class="symbol symbol-50 symbol-light-success">
+                                        <div class="symbol-label"><span class="symbol-label font-size-h1 font-weight-bold">{{ l.Initial }}</span></div>
+                                    </div>
+                                    <!--end::Symbol-->
+                                </td>
+                                <!--end::Icon-->
+                                <!--begin::Content-->
+                                <td class="align-middle pb-6">
+                                    <div class="font-size-lg font-weight-bolder text-dark-75 mb-1 text-muted">{{ l.Msg }}</div>
+                                </td>
+                                <!--end::Content-->
+                            </tr>
+                            {% endfor %} 
+                            <!--end::Item-->
+                        </tbody>
+                    </table>
+                </div>
+                <!--end::Table-->
+            </div>
+            <!--end::Body-->
+        </div>
+        <!--end::List Widget 20-->
+    </div>
 </div>
 <!--end::Section-->
 {% endfor %} 
