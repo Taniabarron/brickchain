@@ -1,6 +1,7 @@
 from datetime import timedelta
 from itertools import groupby
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
@@ -89,8 +90,15 @@ def detail(request, token):
 
 @login_required
 def buy_token(request):
-    values = {}
-    return values
+    try:
+        data = request.POST
+        print(data)
+        #change response
+        response = {"code": 200, "msg": "Successful purchase!"}
+    except Exception as e:
+        print(e)
+        response = {"code": 500, "msg": "We have not been able to complete your purchase"}
+    return JsonResponse(response)   
 
 @login_required
 @csrf_exempt
