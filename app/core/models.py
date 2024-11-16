@@ -16,3 +16,8 @@ class Logbook(models.Model):
     action = models.CharField(max_length=250)
     user_id = models.IntegerField(null=True, blank=True)
     timestamp = models.DateTimeField(default=timezone.now)
+    
+class Country(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=255, unique=True)
+    code = models.CharField(max_length=3, unique=True)

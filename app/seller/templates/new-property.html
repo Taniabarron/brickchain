@@ -1,20 +1,595 @@
 {% extends "app/core/templates/base/base.html" %}
 {% load static %}
 
-{% block title %} Dashboard {% endblock %}
+{% block title %} New property {% endblock %}
 
 {% block head %}
 
+<!--begin::Page Custom Styles(used by this page)-->
+<link href="https://taniabarron.github.io/utils/css/wizard-1.css" rel="stylesheet"/>
+<!--end::Page Custom Styles-->
+
+<style>
+    .form-hide {
+        visibility: hidden;  
+        height: 0;          
+        overflow: hidden;    
+        transition: height 0.5s ease, visibility 0.5s ease;
+    }
+    .visible {
+        visibility: visible;  
+        height: auto;       
+    }
+</style>
 {% endblock %}
 
 {% block section %}
-Tokens
+New property
 {% endblock %}
 
 {% block content %}
-<h1> hola </h1>
+    <div class="card card-custom">
+        <div class="card-body p-0">
+            <!--begin::Wizard-->
+            <div class="wizard wizard-1" id="kt_wizard" data-wizard-state="step-first" data-wizard-clickable="false">
+                <!--begin::Wizard Nav-->
+                <div class="wizard-nav border-bottom">
+                    <div class="wizard-steps p-8 p-lg-10">
+                        <!--begin::Wizard Step 1 Nav-->
+                        <div class="wizard-step" data-wizard-type="step" data-wizard-state="current">
+                            <div class="wizard-label">
+                                <i class="wizard-icon flaticon-map-location"></i>
+                                <h3 class="wizard-title">1. Setup Location</h3>
+                            </div>
+                            <span class="svg-icon svg-icon-xl wizard-arrow">
+                                <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Arrow-right.svg-->
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <polygon points="0 0 24 0 24 24 0 24" />
+                                        <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)" x="11" y="5" width="2" height="14" rx="1" />
+                                        <path d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)" />
+                                    </g>
+                                </svg>
+                                <!--end::Svg Icon-->
+                            </span>
+                        </div>
+                        <!--end::Wizard Step 1 Nav-->
+                        <!--begin::Wizard Step 2 Nav-->
+                        <div class="wizard-step" data-wizard-type="step">
+                            <div class="wizard-label">
+                                <i class="wizard-icon flaticon-list"></i>
+                                <h3 class="wizard-title">2. Enter Details</h3>
+                            </div>
+                            <span class="svg-icon svg-icon-xl wizard-arrow">
+                                <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Arrow-right.svg-->
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <polygon points="0 0 24 0 24 24 0 24" />
+                                        <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)" x="11" y="5" width="2" height="14" rx="1" />
+                                        <path d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)" />
+                                    </g>
+                                </svg>
+                                <!--end::Svg Icon-->
+                            </span>
+                        </div>
+                        <!--end::Wizard Step 2 Nav-->
+                        <!--begin::Wizard Step 3 Nav-->
+                        <div class="wizard-step" data-wizard-type="step">
+                            <div class="wizard-label">
+                                <i class="wizard-icon flaticon-upload-1"></i>
+                                <h3 class="wizard-title">3. Documents upload</h3>
+                            </div>
+                            <span class="svg-icon svg-icon-xl wizard-arrow">
+                                <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Arrow-right.svg-->
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <polygon points="0 0 24 0 24 24 0 24" />
+                                        <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)" x="11" y="5" width="2" height="14" rx="1" />
+                                        <path d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)" />
+                                    </g>
+                                </svg>
+                                <!--end::Svg Icon-->
+                            </span>
+                        </div>
+                        <!--end::Wizard Step 3 Nav-->
+                        <!--begin::Wizard Step 4 Nav-->
+                        <div class="wizard-step" data-wizard-type="step">
+                            <div class="wizard-label">
+                                <i class="wizard-icon flaticon-rocket"></i>
+                                <h3 class="wizard-title">4. Tokenization</h3>
+                            </div>
+                            
+                        </div>
+                        <!--end::Wizard Step 4 Nav-->
+                    </div>
+                </div>
+                <!--end::Wizard Nav-->
+                <!--begin::Wizard Body-->
+                <div class="row justify-content-center my-10 px-8 my-lg-15 px-lg-10">
+                    <div class="col-xl-12 col-xxl-7">
+                        <!--begin::Wizard Form-->
+                        <form class="form" id="kt_form">
+                            {% csrf_token %}
+                            <!--begin::Wizard Step 1-->
+                            <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
+                                <h3 class="mb-10 font-weight-bold text-dark">Set the property location</h3>
+                                <!--begin::Input-->
+                                <div class="form-group">
+                                    <label>Title</label>
+                                    <input type="text" class="form-control form-control-solid form-control-lg" name="title" placeholder="Luxury House" value="" />
+                                    <span class="form-text text-muted">Please enter a title.</span>
+                                </div>
+                                <!--end::Input-->
+                                <!--begin::Input-->
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <input type="text" class="form-control form-control-solid form-control-lg" name="address" placeholder="Address Line" value="" />
+                                    <span class="form-text text-muted">Please enter your Address.</span>
+                                </div>
+                                <!--end::Input-->
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <!--begin::Input-->
+                                        <div class="form-group">
+                                            <label>Postcode</label>
+                                            <input type="text" class="form-control form-control-solid form-control-lg" name="zip_code" placeholder="Postcode" value="" />
+                                            <span class="form-text text-muted">Please enter your Postcode.</span>
+                                        </div>
+                                        <!--end::Input-->
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <!--begin::Input-->
+                                        <div class="form-group">
+                                            <label>City</label>
+                                            <input type="text" class="form-control form-control-solid form-control-lg" name="city" placeholder="City" value="" />
+                                            <span class="form-text text-muted">Please enter your City.</span>
+                                        </div>
+                                        <!--end::Input-->
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <!--begin::Input-->
+                                        <div class="form-group">
+                                            <label>State</label>
+                                            <input type="text" class="form-control form-control-solid form-control-lg" name="state" placeholder="State" value="" />
+                                            <span class="form-text text-muted">Please enter your State.</span>
+                                        </div>
+                                        <!--end::Input-->
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <!--begin::Select-->
+                                        <div class="form-group">
+                                            <label>Country</label>
+                                            <select name="country" class="form-control form-control-solid form-control-lg">
+                                                <option value="">Select</option>
+                                                {% for o in list %}
+                                                <option value="{{ o.code }}">{{ o.name }}</option>
+                                                {% endfor %} 
+                                            </select>
+                                        </div>
+                                        <!--end::Select-->
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end::Wizard Step 1-->
+                            <!--begin::Wizard Step 2-->
+                            <div class="pb-5" data-wizard-type="step-content">
+                                <h4 class="mb-10 font-weight-bold text-dark">Enter your property information</h4>
+                                <!--begin::Input-->
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <input type="text" class="form-control form-control-solid form-control-lg" name="description" placeholder="Best zone..." value="" />
+                                    <span class="form-text text-muted">Please enter your property description.</span>
+                                </div>
+                                <!--end::Input-->
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <!--begin::Input-->
+                                        <div class="form-group">
+                                            <label>Market value</label>
+                                            <input type="number" class="form-control form-control-solid form-control-lg" name="valuation" placeholder="Market valuation" value="" />
+                                            <span class="form-text text-muted">Please enter the market valuation of your property.</span>
+                                        </div>
+                                        <!--end::Input-->
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <!--begin::Input-->
+                                        <div class="form-group">
+                                            <label>Property type</label>
+                                            <select name="property_type" id="options" onchange="showForm()" class="form-control form-control-solid form-control-lg">
+                                                <option value="">Select</option>
+                                                <option value="Land">Land</option>
+                                                <option value="Apartment">Apartment</option>
+                                                <option value="House">House</option>
+                                            </select>
+                                            <span class="form-text text-muted">Please select your property type.</span>
+                                        </div>
+                                        <!--end::Input-->
+                                    </div>
+                                </div>
+                                <!--end::Input-->
+                                <div class="row form-hide" id="Land">
+                                    <div class="col-xl-4">
+                                        <!--begin::Input-->
+                                        <div class="form-group">
+                                            <label>Total land area (m2)</label>
+                                            <input type="number" class="form-control form-control-solid form-control-lg" name="m2_total" placeholder="200" value="" />
+                                            <span class="form-text text-muted">Please enter the square meters of land.</span>
+                                        </div>
+                                        <!--end::Input-->
+                                    </div>
+                                    <div class="col-xl-4">
+                                        <!--begin::Input-->
+                                        <div class="form-group">
+                                            <label>Length</label>
+                                            <input type="text" class="form-control form-control-solid form-control-lg" name="length" placeholder="10" value="" />
+                                            <span class="form-text text-muted">Please enter the length of the land.</span>
+                                        </div>
+                                        <!--end::Input-->
+                                    </div>
+                                    <div class="col-xl-4">
+                                        <!--begin::Input-->
+                                        <div class="form-group">
+                                            <label>Width</label>
+                                            <input type="text" class="form-control form-control-solid form-control-lg" name="width" placeholder="20" value="" />
+                                            <span class="form-text text-muted">Please enter the width of the land.</span>
+                                        </div>
+                                        <!--end::Input-->
+                                    </div>
+                                </div>
+                                <div class="form-hide" id="Apartment">
+                                    <div class="row" >
+                                        <div class="col-xl-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group">
+                                                <label>Apartment construction area</label>
+                                                <input type="number" class="form-control form-control-solid form-control-lg" name="m2_apartment" placeholder="350" value="" />
+                                                <span class="form-text text-muted">Please enter the house construction area.</span>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                        <div class="col-xl-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group">
+                                                <label>Property age</label>
+                                                <input type="number" class="form-control form-control-solid form-control-lg" name="age_apartment" placeholder="1" value="" />
+                                                <span class="form-text text-muted">Please enter the property age.</span>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                        <div class="col-xl-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group">
+                                                <label>Parking spaces</label>
+                                                <input type="number" class="form-control form-control-solid form-control-lg" name="parking_apartment" placeholder="2" value="" />
+                                                <span class="form-text text-muted">Please enter the number of parking spaces.</span>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xl-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group">
+                                                <label>Number of bathrooms</label>
+                                                <input type="number" class="form-control form-control-solid form-control-lg" name="bathrooms_apartment" placeholder="2" value="" />
+                                                <span class="form-text text-muted">Please enter the number of baths.</span>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                        <div class="col-xl-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group">
+                                                <label>Half baths</label>
+                                                <input type="number" class="form-control form-control-solid form-control-lg" name="half_baths_apartment" placeholder="1" value="" />
+                                                <span class="form-text text-muted">Please enter the number of half baths.</span>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                        <div class="col-xl-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group">
+                                                <label>Number of bedrooms</label>
+                                                <input type="number" class="form-control form-control-solid form-control-lg" name="bedrooms_apartment" placeholder="1" value="" />
+                                                <span class="form-text text-muted">Please enter the number of bedrooms.</span>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xl-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group">
+                                                <label>Furnished</label>
+                                                <span class="switch">
+                                                    <label>
+                                                     <input type="checkbox" name="furnished_apartment"/>
+                                                     <span></span>
+                                                    </label>
+                                                </span>
+                                                <span class="form-text text-muted">Please enter whether it is a furnished or unfurnished house.</span>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                        <div class="col-xl-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group">
+                                                <label>Services</label>
+                                                <span class="switch">
+                                                    <label>
+                                                     <input type="checkbox" name="services_apartment"/>
+                                                     <span></span>
+                                                    </label>
+                                                </span>
+                                                <span class="form-text text-muted">Please enter if the house has all the services (electricity, gas, water, electricity, etc.).</span>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                        <div class="col-xl-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group">
+                                                <label>Type of use</label>
+                                                <input type="text" class="form-control form-control-solid form-control-lg" name="land_use_apartment" placeholder="Residential Only" value="" />
+                                                <span class="form-text text-muted">Please enter the different types of use that the property may have (home, office, etc.).</span>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>  
+                                    </div>
+                                </div>
+                                <div class="form-hide" id="House">
+                                    <div class="row" >
+                                        <div class="col-xl-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group">
+                                                <label>Land area of the house (m2)</label>
+                                                <input type="number" class="form-control form-control-solid form-control-lg" name="m2_land" placeholder="200" value="" />
+                                                <span class="form-text text-muted">Please enter the land area of the house.</span>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                        <div class="col-xl-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group">
+                                                <label>House construction area (m2)</label>
+                                                <input type="number" class="form-control form-control-solid form-control-lg" name="m2_house" placeholder="350" value="" />
+                                                <span class="form-text text-muted">Please enter the house construction area.</span>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                        <div class="col-xl-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group">
+                                                <label>Property age</label>
+                                                <input type="number" class="form-control form-control-solid form-control-lg" name="age" placeholder="1" value="" />
+                                                <span class="form-text text-muted">Please enter the property age.</span>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xl-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group">
+                                                <label>Number of bathrooms</label>
+                                                <input type="number" class="form-control form-control-solid form-control-lg" name="bathrooms" placeholder="2" value="" />
+                                                <span class="form-text text-muted">Please enter the number of baths.</span>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                        <div class="col-xl-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group">
+                                                <label>Half baths</label>
+                                                <input type="number" class="form-control form-control-solid form-control-lg" name="half_baths" placeholder="1" value="" />
+                                                <span class="form-text text-muted">Please enter the number of half baths.</span>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                        <div class="col-xl-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group">
+                                                <label>Number of bedrooms</label>
+                                                <input type="number" class="form-control form-control-solid form-control-lg" name="bedrooms" placeholder="1" value="" />
+                                                <span class="form-text text-muted">Please enter the number of bedrooms.</span>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xl-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group">
+                                                <label>Furnished</label>
+                                                <span class="switch">
+                                                    <label>
+                                                     <input type="checkbox" name="furnished"/>
+                                                     <span></span>
+                                                    </label>
+                                                </span>
+                                                <span class="form-text text-muted">Please enter whether it is a furnished or unfurnished house.</span>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                        <div class="col-xl-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group">
+                                                <label>Garden</label>
+                                                <span class="switch">
+                                                    <label>
+                                                     <input type="checkbox" name="garden"/>
+                                                     <span></span>
+                                                    </label>
+                                                </span>
+                                                <span class="form-text text-muted">Please enter if the house has a garden.</span>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                        <div class="col-xl-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group">
+                                                <label>Pool</label>
+                                                <span class="switch">
+                                                    <label>
+                                                     <input type="checkbox" name="pool"/>
+                                                     <span></span>
+                                                    </label>
+                                                </span>
+                                                <span class="form-text text-muted">Please enter if the house has a pool.</span>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xl-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group">
+                                                <label>Services</label>
+                                                <span class="switch">
+                                                    <label>
+                                                     <input type="checkbox" name="services"/>
+                                                     <span></span>
+                                                    </label>
+                                                </span>
+                                                <span class="form-text text-muted">Please enter if the house has all the services (electricity, gas, water, electricity, etc.).</span>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                        <div class="col-xl-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group">
+                                                <label>Parking spaces</label>
+                                                <input type="number" class="form-control form-control-solid form-control-lg" name="parking" placeholder="2" value="" />
+                                                <span class="form-text text-muted">Please enter the number of parking spaces.</span>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                        <div class="col-xl-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group">
+                                                <label>Type of use</label>
+                                                <input type="text" class="form-control form-control-solid form-control-lg" name="land_use" placeholder="Residential only" value="" />
+                                                <span class="form-text text-muted">Please enter the different types of use that the property may have (home, office, etc.).</span>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end::Wizard Step 2-->
+                            <!--begin::Wizard Step 3-->
+                            <div class="pb-5" data-wizard-type="step-content">
+                                <h4 class="mb-10 font-weight-bold text-dark">Upload your documents</h4>
+                                <!--begin::Select-->
+                                <div class="row">
+                                    <label class="col-lg-3 col-form-label">Upload the property image:</label>
+                                    <div class="col-lg-9">
+                                        <div class="dropzone dropzone-multi" id="kt_dropzone">
+                                            <div class="dropzone-panel mb-lg-0 mb-2">
+                                                <a class="dropzone-select btn btn-light-primary font-weight-bold btn-sm">Attach files</a>
+                                                <a class="dropzone-remove-all btn btn-light-primary font-weight-bold btn-sm">Remove All</a>
+                                            </div>
+                                            <div class="dropzone-items">
+                                                <div class="dropzone-item" style="display:none">
+                                                    <div class="dropzone-file">
+                                                        <div class="dropzone-filename" title="some_image_file_name.jpg">
+                                                            <span data-dz-name="">some_image_file_name.jpg</span>
+                                                            <strong>(
+                                                            <span data-dz-size="">340kb</span>)</strong>
+                                                        </div>
+                                                        <div class="dropzone-error" data-dz-errormessage=""></div>
+                                                    </div>
+                                                    <div class="dropzone-progress">
+                                                        <div class="progress">
+                                                            <div class="progress-bar bg-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-dz-uploadprogress=""></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dropzone-toolbar">
+                                                        <span class="dropzone-start">
+                                                            <i class="flaticon2-arrow"></i>
+                                                        </span>
+                                                        <span class="dropzone-cancel" data-dz-remove="" style="display: none;">
+                                                            <i class="flaticon2-cross"></i>
+                                                        </span>
+                                                        <span class="dropzone-delete" data-dz-remove="">
+                                                            <i class="flaticon2-cross"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <span class="form-text text-muted">Max file size is 4MB and max number of files is 5.</span>
+                                    </div>
+                                </div>
+                                <!--end::Select-->
+                                <!--begin::Select-->
+                                <div class="form-group">
+                                    <label>Upload proof of ownership</label>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" name="ownership" id="fileInput"/>
+                                        <label class="custom-file-label" id="customFile">Choose file</label>
+                                    </div>
+                                    <span class="form-text text-muted">Please upload a proof of ownership.</span>
+                                </div>
+                                <!--end::Select-->
+                                <!--begin::Select-->
+                                <div class="form-group">
+                                    <label>Upload your identification</label>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" name="identification" id="fileInput2"/>
+                                        <label class="custom-file-label" id="customFile2">Choose file</label>
+                                    </div>
+                                    <span class="form-text text-muted">Please upload your identification.</span>
+                                </div>
+                                <!--end::Select-->
+                            </div>
+                            <!--end::Wizard Step 3-->
+                            <!--begin::Wizard Step 4-->
+                            <div class="pb-5" data-wizard-type="step-content">
+                                <h4 class="mb-10 font-weight-bold text-dark">Setup Your Tokens</h4>
+                                <!--begin::Input-->
+                                <div class="form-group">
+                                    <label>Number of tokens</label>
+                                    <input type="number" class="form-control form-control-solid form-control-lg" name="tokens" placeholder="1000" value="" />
+                                    <span class="form-text text-muted">Please enter the number of tokens.</span>
+                                </div>
+                                <!--end::Input-->
+                                <!--begin::Input-->
+                                <div class="form-group">
+                                    <label>Unit Cost</label>
+                                    <input type="number" class="form-control form-control-solid form-control-lg" name="cost" placeholder="50 USDT" value="" />
+                                    <span class="form-text text-muted">Please enter the cost.</span>
+                                </div>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Wizard Step 4-->
+                            <!--begin::Wizard Actions-->
+                            <div class="d-flex justify-content-between border-top mt-5 pt-10">
+                                <div class="mr-2">
+                                    <button type="button" class="btn btn-light-primary font-weight-bolder text-uppercase px-9 py-4" data-wizard-type="action-prev">Previous</button>
+                                </div>
+                                <div>
+                                    <button type="button" class="btn btn-success font-weight-bolder text-uppercase px-9 py-4" data-wizard-type="action-submit">Submit</button>
+                                    <button type="button" class="btn btn-primary font-weight-bolder text-uppercase px-9 py-4" data-wizard-type="action-next">Next</button>
+                                </div>
+                            </div>
+                            <!--end::Wizard Actions-->
+                        </form>
+                        <!--end::Wizard Form-->
+                    </div>
+                </div>
+                <!--end::Wizard Body-->
+            </div>
+            <!--end::Wizard-->
+        </div>
+        <!--end::Wizard-->
+    </div>
 {% endblock %}
 
 {% block javascript %}
-
+<!--begin::Page Scripts(used by this page)-->
+<script src="{% static 'app/seller/static/js/dropzone-1.js' %}"></script>  
+<script src="{% static 'app/seller/static/js/wizard-2.js' %}"></script>  
+ 
+<!--end::Page Scripts-->
 {% endblock %}

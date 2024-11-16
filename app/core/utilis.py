@@ -3,7 +3,6 @@ import codecs
 from hashlib import md5
 import json
 import re
-from jinja2 import Environment, FileSystemLoader
 from mailjet_rest import Client
 import requests
 from Crypto.Cipher import AES
@@ -11,7 +10,7 @@ from Crypto.Cipher import AES
 
 DATA_FILE = './opt/datos.json'
 PHRASE = 'Blockchain'
-
+            
 def _get_data_secret(key):
     data = {}
     try:
@@ -60,6 +59,7 @@ def _checkVarchar(strings):
 
 def validate_data(data):
     for key, value in data.items():
+        print(value)
         if _checkVarchar(value):
             return False  
     return True 
