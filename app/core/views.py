@@ -1,3 +1,4 @@
+import json
 import uuid
 from django.contrib.auth import authenticate, login, logout as do_logout
 from django.contrib.auth.decorators import login_required
@@ -12,8 +13,18 @@ from app.core.utilis import SendMailMailJet, _checkVarchar, render_template, val
 
 def index(request):
     values = {}
+    load_countries()
     return render(request, 'app/core/templates/onboarding/index.html', values)
 
+def load_countries():
+    with open('./opt/countries.json', 'r') as file:
+        countries = json.load(file)
+        for country in countries:
+            if Country.objects.filter(code=country['code']).exists():
+                continue
+            else:
+                Country.objects.get_or_create(name=country['name'], code=country['code'])
+            
 def sing_in(request):
     values = {}
     return render(request, 'app/core/templates/onboarding/login.html', values)
