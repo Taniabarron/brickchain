@@ -12,13 +12,11 @@ from app.buyer.models import Token
 
 @login_required
 def tokens(request):
-    values = {}
-    return values
+    return render(request, 'app/buyer/templates/my-tokens.html')
 
 @login_required
 def sales(request):
-    values = {}
-    return values
+    return render(request, 'app/buyer/templates/my-sales.html')
 
 @login_required
 def detail(request, token):
