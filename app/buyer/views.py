@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from app.core.models import Country
 from app.core.utilis import _decrypt, _encrypt
 from app.core.views import save_logbook
+from app.marketplace.models import Resale
 from app.seller.models import *
 from app.buyer.models import Token
 
@@ -16,44 +17,40 @@ def tokens(request):
     data = []
     action = []
     action_unique = []
-    token_summary = []
-    for p in Property.objects.filter(user_id=request.user).order_by("-timestamp"):
-        
-        if p.status:
-            val = "checked"
-            color = "success"
-        else:
-            val = "unchecked"
-            color = "danger"
-        image = PropertyImages.objects.filter(property=p).order_by('timestamp').values('path')[:1]
-        counter = Token.objects.filter(property=p).count()
-        country = Country.objects.get(code=p.country)
-        stock = p.tokens - counter 
-        data.append(
-            {
-                "Id": _encrypt(p.id),
-                "Title": p.title,
-                "Country": country.name,
-                "Image": image[0]['path'],
-                "CreateDate": p.timestamp.strftime("%d/%m/%Y"),
-                "Status": val,
-                "Color": color,
-                "Address": p.address,
-                "Tokens": p.tokens,
-                "Stock": stock,
-                "Cost": p.cost,
-                "Type": p.property_type,
-            }
-        )
-        
-        if p.property_type not in action_unique:
-            action_unique.append(p.property_type)
-            action.append({'id': p.property_type, 'action': p.property_type})
-            
-    response = {
-        "templates": data,
-        "action": action
-    }
+    for t in Token.objects.filter(user_id=request.user).order_by("-timestamp"):
+        if t.status:
+            p = Property.objects.get(id=t.property.id)
+            if Resale.objects.filter(token=t.id).exists():
+                val = "Resale"
+                color = "warning"
+            else:
+                val = "Active"
+                color = "success"
+            image = PropertyImages.objects.filter(property=p).order_by('timestamp').values('path')[:1]
+            country = Country.objects.get(code=p.country)
+            data.append(
+                {
+                    "Id": _encrypt(t.id),
+                    "Title": p.title,
+                    "Country": country.name,
+                    "Image": image[0]['path'],
+                    "CreateDate": p.timestamp.strftime("%d/%m/%Y"),
+                    "Status": val,
+                    "Color": color,
+                    "Address": p.address,
+                    "Tokens": p.tokens,
+                    "Cost": p.cost,
+                    "Type": p.property_type,
+                }
+            )
+            if p.property_type not in action_unique:
+                action_unique.append(p.property_type)
+                action.append({'id': p.property_type, 'action': p.property_type})
+                
+        response = {
+            "templates": data,
+            "action": action
+        }
     return render(request, 'app/buyer/templates/my-tokens.html', response)
 
 @login_required

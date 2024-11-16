@@ -1,8 +1,11 @@
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
 from app.core.models import Country
-from app.core.utilis import _encrypt
+from app.core.utilis import _decrypt, _encrypt
+from app.core.views import save_logbook
+from app.marketplace.models import Resale
 from app.seller.models import *
 from app.buyer.models import Token
 
@@ -60,8 +63,24 @@ def marketplace_resales(request):
 
 @login_required
 def resale_token(request):
-    values = {}
-    return values
+    try:
+        data = request.POST
+        if data.get('id'):
+            token = Token.objects.get(id=_decrypt(data.get('id')))
+            resale = Resale.objects.create(token=token,
+                                    publish_price=data.get('price'),
+                                    status=True,
+                                    auction=data.get('auction')) 
+            print(resale)
+            save_logbook("Resale token.", request.user.id) 
+            response = {"code": 200, "msg": "Successful resale!"}
+        else:
+        
+            response = {"code": 401, "msg": "Some of the information contains invalid characters"}
+    except Exception as e:
+        print(e)
+        response = {"code": 500, "msg": "We have not been able to complete your purchase"}
+    return JsonResponse(response)
 
 @login_required
 def offer_token(request):

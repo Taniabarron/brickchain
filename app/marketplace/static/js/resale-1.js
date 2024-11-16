@@ -1,10 +1,32 @@
+$('#exampleModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); 
+    var id = button.data('id'); 
+    $('#exampleModal .btn-primary').attr('onclick', 'check_token("'+ id + '")');
+});
+
 function check_token(id) {
-    var formData = new FormData($('#kt_form')[0]);
+    var formData = new FormData();
     formData.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val()); 
-    formData.append("quantity", $('#touchspin').val());
     formData.append("id", id);
+    $('#kt_form').find('input, select, textarea').each(function() {
+        var fieldName = $(this).attr('name');
+        var fieldValue = $(this).val();
+
+        if (fieldName && fieldValue) {
+            if ($(this).attr('type') === 'checkbox') {
+                const checkbox = this;
+                if (checkbox.checked) {
+                    formData.append(fieldName, 'True');
+                } else {
+                    formData.append(fieldName, 'False');
+                };
+            } else {
+                formData.append(fieldName, fieldValue);
+            }
+        }
+    });
     Swal.fire({
-        title: "Are you sure you want to buy these tokens?",
+        title: "Are you sure you want to resale this token?",
         showCancelButton: true,
         confirmButtonText: "Confirm",
         cancelButtonText: "Cancel",
@@ -20,7 +42,7 @@ function check_token(id) {
                 }
             }).then(function() {
                 // Llama a buy_token después de la validación
-                buy_token(formData);
+                resale_token(formData);
             });
         } else if (result.dismiss === Swal.DismissReason.cancel) {
             // Si el usuario cancela, puedes ejecutar alguna acción opcional
@@ -29,9 +51,9 @@ function check_token(id) {
     });
 }
 
-function buy_token(formData) {
+function resale_token(formData) {
     $.ajax({
-        url: '/buyer/buy',
+        url: '/marketplace/resale',
         type: 'POST',
         data: formData,
         contentType: false,
