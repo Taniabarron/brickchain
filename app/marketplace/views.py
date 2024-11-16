@@ -63,37 +63,33 @@ def marketplace_resales(request):
     apartment = []
     action = []
     action_unique = []
-    for p in Property.objects.all().order_by("-timestamp"):
+    for p in Resale.objects.all().order_by("-timestamp"):
         if p.status:
-            color = "info"
-            counter = Token.objects.filter(property=p).count()
-            stock = p.tokens - counter 
-            image = PropertyImages.objects.filter(property=p).order_by('timestamp').values('path')[:1]
-            country = Country.objects.get(code=p.country)
+            t = Token.objects.get(id=p.token.id)
+            image = PropertyImages.objects.filter(property=t.property).order_by('timestamp').values('path')[:1]
+            country = Country.objects.get(code=t.property.country)
             details = {
                         "Id": _encrypt(p.id),
-                        "Title": p.title,
+                        "Title": t.property.title,
                         "Country": country.name,
                         "Image": image[0]['path'],
                         "CreateDate": p.timestamp.strftime("%d/%m/%Y"),
-                        "Color": color,
-                        "Address": p.address,
-                        "Tokens": p.tokens,
-                        "Stock": stock,
-                        "Cost": p.cost,
-                        "Owner": p.user_id.first_name
+                        "Address": t.property.address,
+                        "Auction": "Auction!" if p.auction else "Unique price",
+                        "Cost": p.publish_price,
+                        "Owner": t.user_id.first_name
                     }
             
-            if p.property_type == "Land":
+            if t.property.property_type == "Land":
                 land.append(details)
-            elif p.property_type == "House":
+            elif t.property.property_type == "House":
                 house.append(details)
             else:
                 apartment.append(details)
                 
-            if p.property_type not in action_unique:
-                action_unique.append(p.property_type)
-                action.append({'id': p.property_type, 'action': p.property_type})
+            if t.property.property_type not in action_unique:
+                action_unique.append(t.property.property_type)
+                action.append({'id': t.property.property_type, 'action': t.property.property_type})
 
     response = {
         "land": land,
