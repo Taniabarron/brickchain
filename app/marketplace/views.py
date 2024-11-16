@@ -9,13 +9,15 @@ from app.buyer.models import Token
 @login_required
 def marketplace(request):
     land = []
+    house = []
+    apartment = []
+    action = []
+    action_unique = []
     for p in Property.objects.all().order_by("-timestamp"):
         if p.status:
             color = "info"
             counter = Token.objects.filter(property=p).count()
-            print(counter)
             stock = p.tokens - counter 
-            print(stock)
             image = PropertyImages.objects.filter(property=p).order_by('timestamp').values('path')[:1]
             country = Country.objects.get(code=p.country)
             details = {
@@ -34,9 +36,20 @@ def marketplace(request):
             
             if p.property_type == "Land":
                 land.append(details)
-    
+            elif p.property_type == "House":
+                house.append(details)
+            else:
+                apartment.append(details)
+                
+            if p.property_type not in action_unique:
+                action_unique.append(p.property_type)
+                action.append({'id': p.property_type, 'action': p.property_type})
+
     response = {
         "land": land,
+        "house": house,
+        "apartment": apartment,
+        "action": action
     }
     return render(request, 'app/marketplace/templates/marketplace.html', response)
 
