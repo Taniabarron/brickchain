@@ -6,3 +6,4 @@ mailjet-rest
 Jinja2
 Pillow
 pycryptodome==3.21.0
+numpy
