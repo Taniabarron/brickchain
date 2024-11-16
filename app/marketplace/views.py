@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from app.core.models import Country
 from app.core.utilis import _decrypt, _encrypt
 from app.core.views import save_logbook
-from app.marketplace.models import Offers, Resale
+from app.marketplace.models import Offers, Resale, ResaleAnalytics
 from app.seller.models import *
 from app.buyer.models import Token
 
@@ -124,6 +124,7 @@ def resale_token(request):
 def offer_token(request):
     try:
         data = request.POST
+        #gas check #blockchain
         
         #validations
         if data.get('id'):
@@ -151,8 +152,59 @@ def offer_token(request):
 def transfer_token(request):
     try:
         data = request.POST
-        print(data)
-        response = {"code": 200, "msg": "Some of the information contains invalid characters"}
+        print("Datos del formulario:", data)
+        if data.get('id'):
+            #gas check #blockchain
+            
+            if data.get('offer'):
+                offer = Offers.objects.get(id=_decrypt(data.get('id'))) 
+                final_price = offer.price
+                buyer = offer.user_id
+                seller = offer.resale.token.user_id
+                resales = offer.resale
+                offer.resale.status = False
+                offer.resale.token.status = False
+                property = offer.resale.token.property
+                offer.resale.save()
+                offer.resale.token.save()
+            else:
+                resales = Resale.objects.get(id=_decrypt(data.get('id')))
+                resales.status = False
+                final_price = data.get('final_price')
+                buyer = request.user
+                seller = resales.token.user_id
+                property = resales.token.property
+                resales.token.status = False
+                resales.token.save()
+                resales.save()
+            
+            #Transferencia Blockchain
+            
+            hast_tx = "0x111"
+            id_chain = 1
+            
+            analytics = ResaleAnalytics.objects.create(resale=resales,
+                                    buyer=buyer,
+                                    seller=seller,
+                                    hast_tx = hast_tx,
+                                    final_price = final_price) 
+            
+            print(analytics)
+            #new token
+            new_token = Token.objects.create(property=property,
+                                    user_id=buyer,
+                                    cost = final_price,
+                                    status = True,
+                                    hast_tx=hast_tx,
+                                    id_chain=id_chain) 
+            print(new_token)
+                
+            save_logbook("Buy a resale token.", request.user.id) 
+            
+            response = {"code": 200, "msg": "Successful transfer!"}
+        else:
+            response = {"code": 401, "msg": "Some of the information contains invalid characters"}
+        print(response)
     except Exception as e:
         print(e)
         response = {"code": 500, "msg": "We have not been able to complete your purchase"}
