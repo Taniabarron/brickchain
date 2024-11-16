@@ -39,31 +39,54 @@ Marketplace
                     <!--begin::Products-->
                     <div class="row">
                         <!--begin::Product-->
-                        <div class="col-md-4 col-xxl-4 col-lg-12">
+                        {% for t in land %}
+                        <p></p>
+                        <div class="col-md-4 col-xxl-4 col-lg-12" style="padding: 10px">
                             <!--begin::Card-->
                             <div class="card card-custom card-shadowless">
                                 <div class="card-body p-0">
                                     <!--begin::Image-->
+                                    <span class="label label-light-{{ t.Color }} label-inline font-weight-bold "> Tokens Avaible {{ t.Stock }}!</span>
+                                    <p></p>
                                     <div class="overlay">
                                         <div class="overlay-wrapper rounded bg-light text-center">
-                                            <img src="assets/media/products/1.png" alt="" class="mw-100 w-200px" />
+                                            <img src="/static/app/media/{{ t.Image }}" alt="" class="card-img-top" style="max-height: 200px; object-fit: cover;"/>
                                         </div>
                                         <div class="overlay-layer">
-                                            <a href="{% url 'app.core:sing_in' %}" class="btn font-weight-bolder btn-sm btn-primary mr-2">Quick View</a>
-                                            <a href="{% url 'app.core:sing_in' %}" class="btn font-weight-bolder btn-sm btn-light-primary">Purchase</a>
+                                            <a href="{% url 'app.core:sing_in' %}" class="btn font-weight-bolder btn-sm btn-primary mr-2">Purchase</a>
                                         </div>
                                     </div>
                                     <!--end::Image-->
                                     <!--begin::Details-->
                                     <div class="text-center mt-5 mb-md-0 mb-lg-5 mb-md-0 mb-lg-5 mb-lg-0 mb-5 d-flex flex-column">
-                                        <a href="#" class="font-size-h5 font-weight-bolder text-dark-75 text-hover-primary mb-1">Smart Watches</a>
-                                        <span class="font-size-lg">Outlines keep poorly thought</span>
+                                        <a href="#" class="font-size-h5 font-weight-bolder text-dark-75 text-hover-primary mb-1">{{ t.Title }}</a>
+                                        <span class="font-size-lg">{{ t.Address }}</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-cente my-1">
+                                        <span class="text-dark-75 font-weight-bolder mr-2">Registration date:</span>
+                                        <a href="#" class="text-muted text-hover-primary">{{ t.CreateDate}}</a>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="text-dark-75 font-weight-bolder mr-2">Country</span>
+                                        <a href="#" class="text-muted text-hover-primary">{{ t.Country}}</a>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-right">
+                                        <span class="text-dark-75 font-weight-bolder mr-2">Tokens:</span>
+                                        <a href="#" class="text-muted text-hover-primary align-right">{{ t.Tokens }}</a>                        
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-right">
+                                        <span class="text-dark-75 font-weight-bolder mr-2">Owner:</span>
+                                        <a href="#" class="text-muted text-hover-primary align-right">{{ t.Owner }}</a>                        
                                     </div>
                                     <!--end::Details-->
                                 </div>
                             </div>
+                            </br>   
+                            <div class="separator separator-solid separator-border-1 separator-dark"></div>
                             <!--end::Card-->
                         </div>
+                        
+                        {% endfor %} 
                         <!--end::Product-->
                         
                     </div>
@@ -81,32 +104,55 @@ Marketplace
                     <!--begin::Products-->
                     <div class="row">
                         <!--begin::Product-->
-                        <div class="col-md-4 col-xxl-4 col-lg-12">
+                        {% for h in house %}
+                        <p></p>
+                        <div class="col-md-4 col-xxl-4 col-lg-12" style="padding: 10px">
                             <!--begin::Card-->
                             <div class="card card-custom card-shadowless">
                                 <div class="card-body p-0">
                                     <!--begin::Image-->
+                                    <span class="label label-light-{{ h.Color }} label-inline font-weight-bold "> Tokens Avaible {{ h.Stock }}!</span>
+                                    <p></p>
                                     <div class="overlay">
                                         <div class="overlay-wrapper rounded bg-light text-center">
-                                            <img src="assets/media/products/4.png" alt="" class="mw-100 w-200px" />
+                                            <img src="/static/app/media/{{ h.Image }}" alt="" class="card-img-top" style="max-height: 200px; object-fit: cover;"/>
                                         </div>
                                         <div class="overlay-layer">
-                                            <a href="{% url 'app.core:sing_in' %}" class="btn font-weight-bolder btn-sm btn-primary mr-2">Quick View</a>
-                                            <a href="{% url 'app.core:sing_in' %}" class="btn font-weight-bolder btn-sm btn-light-primary">Purchase</a>
+                                            <a href="{% url 'app.core:sing_in' %}" class="btn font-weight-bolder btn-sm btn-primary mr-2">Purchase</a>                                            
                                         </div>
                                     </div>
                                     <!--end::Image-->
                                     <!--begin::Details-->
                                     <div class="text-center mt-5 mb-md-0 mb-lg-5 mb-md-0 mb-lg-5 mb-lg-0 mb-5 d-flex flex-column">
-                                        <a href="#" class="font-size-h5 font-weight-bolder text-dark-75 text-hover-primary mb-1">Jerry Kane</a>
-                                        <span class="font-size-lg">Outlines keep poorly thought</span>
+                                        <a href="#" class="font-size-h5 font-weight-bolder text-dark-75 text-hover-primary mb-1">{{ h.Title }}</a>
+                                        <span class="font-size-lg">{{ h.Address }}</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-cente my-1">
+                                        <span class="text-dark-75 font-weight-bolder mr-2">Registration date:</span>
+                                        <a href="#" class="text-muted text-hover-primary">{{ h.CreateDate}}</a>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="text-dark-75 font-weight-bolder mr-2">Country</span>
+                                        <a href="#" class="text-muted text-hover-primary">{{ h.Country}}</a>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-right">
+                                        <span class="text-dark-75 font-weight-bolder mr-2">Tokens:</span>
+                                        <a href="#" class="text-muted text-hover-primary align-right">{{ h.Tokens }}</a>                        
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-right">
+                                        <span class="text-dark-75 font-weight-bolder mr-2">Owner:</span>
+                                        <a href="#" class="text-muted text-hover-primary align-right">{{ h.Owner }}</a>                        
                                     </div>
                                     <!--end::Details-->
                                 </div>
                             </div>
+                            </br>   
+                            <div class="separator separator-solid separator-border-1 separator-dark"></div>
                             <!--end::Card-->
                         </div>
+                        {% endfor %} 
                         <!--end::Product-->
+                        
                     </div>
                     <!--end::Products-->
                 </div>
@@ -122,32 +168,56 @@ Marketplace
                     <!--begin::Products-->
                     <div class="row">
                         <!--begin::Product-->
-                        <div class="col-md-4 col-xxl-4 col-lg-12">
+                        {% for a in apartment %}
+                        <p></p>
+                        <div class="col-md-4 col-xxl-4 col-lg-12" style="padding: 10px">
                             <!--begin::Card-->
                             <div class="card card-custom card-shadowless">
                                 <div class="card-body p-0">
                                     <!--begin::Image-->
+                                    <span class="label label-light-{{ a.Color }} label-inline font-weight-bold "> Tokens Avaible {{ a.Stock }}!</span>
+                                    <p></p>
                                     <div class="overlay">
                                         <div class="overlay-wrapper rounded bg-light text-center">
-                                            <img src="assets/media/products/7.png" alt="" class="mw-100 w-200px" />
+                                            <img src="/static/app/media/{{ a.Image }}" alt="" class="card-img-top" style="max-height: 200px; object-fit: cover;"/>
                                         </div>
                                         <div class="overlay-layer">
-                                            <a href="{% url 'app.core:sing_in' %}" class="btn font-weight-bolder btn-sm btn-primary mr-2">Tommy Hilfiger</a>
-                                            <a href="{% url 'app.core:sing_in' %}" class="btn font-weight-bolder btn-sm btn-light-primary">Purchase</a>
+                                            <a href="{% url 'app.core:sing_in' %}" class="btn font-weight-bolder btn-sm btn-primary mr-2">Purchase</a>                                            
                                         </div>
                                     </div>
                                     <!--end::Image-->
                                     <!--begin::Details-->
                                     <div class="text-center mt-5 mb-md-0 mb-lg-5 mb-md-0 mb-lg-5 mb-lg-0 mb-5 d-flex flex-column">
-                                        <a href="#" class="font-size-h5 font-weight-bolder text-dark-75 text-hover-primary mb-1">Smart Watches</a>
-                                        <span class="font-size-lg">Outlines keep poorly thought</span>
+                                        <a href="#" class="font-size-h5 font-weight-bolder text-dark-75 text-hover-primary mb-1">{{ a.Title }}</a>
+                                        <span class="font-size-lg">{{ a.Address }}</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-cente my-1">
+                                        <span class="text-dark-75 font-weight-bolder mr-2">Registration date:</span>
+                                        <a href="#" class="text-muted text-hover-primary">{{ a.CreateDate}}</a>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="text-dark-75 font-weight-bolder mr-2">Country</span>
+                                        <a href="#" class="text-muted text-hover-primary">{{ a.Country}}</a>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-right">
+                                        <span class="text-dark-75 font-weight-bolder mr-2">Tokens:</span>
+                                        <a href="#" class="text-muted text-hover-primary align-right">{{ a.Tokens }}</a>                        
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-right">
+                                        <span class="text-dark-75 font-weight-bolder mr-2">Owner:</span>
+                                        <a href="#" class="text-muted text-hover-primary align-right">{{ a.Owner }}</a>                        
                                     </div>
                                     <!--end::Details-->
                                 </div>
                             </div>
+                            </br>   
+                            <div class="separator separator-solid separator-border-1 separator-dark"></div>
                             <!--end::Card-->
                         </div>
+                       
+                        {% endfor %} 
                         <!--end::Product-->
+                        
                     </div>
                     <!--end::Products-->
                 </div>
