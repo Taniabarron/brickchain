@@ -68,13 +68,14 @@ def detail(request, token):
     counter = Token.objects.filter(property=p).count()
     stock = p.tokens - counter 
     sales = counter * p.cost
+    country = Country.objects.get(code=p.country)
 
     data.append(
         {
             "Id": token,
             "Title": p.title,
             "Description": p.description,
-            "Country": p.country,
+            "Country": country.name,
             "Image": image[0]['path'],
             "CreateDate": p.timestamp.strftime("%d/%m/%Y"),
             "Status": "hidden" if stock == 0 else "",

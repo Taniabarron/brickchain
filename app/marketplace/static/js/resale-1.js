@@ -76,3 +76,4 @@ function resale_token(formData) {
         });
     });
 }
+
