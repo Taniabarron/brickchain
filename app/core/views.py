@@ -177,14 +177,40 @@ def reset_password(request):
         response = {"code": 500, "msg": "We couldn't find your username."}
     return JsonResponse(response)
 
+@login_required
 def logbook(request):
-    values = {}
-    return values
+    logbook = Logbook.objects.filter(user_id=request.user.id)
+    action = []
+    action_unique = []
+    for r in logbook:
+        if r.action not in action_unique:
+            action_unique.append(r.action)
+            action.append({'id': r.action, 'action': r.action})
+    response = {'action': action}
+    return render(request, 'app/core/templates/user/logbook.html', response)
 
+@login_required
+@csrf_exempt
 def get_logbook(request):
-    values = {}
-    return values
+    logbook = Logbook.objects.filter(user_id=request.user.id)
+    size = len(logbook)
+    response = {"meta": {
+        "page": 1,
+        "pages": size / 10,
+        "perpage": -1,
+        "total": size,
+        "sort": "asc",
+        "field": "RecordID"}
+    }
+    data = []
+    for r in logbook:
+        data.append({'RecordID': r.id,
+                     'Action': r.action,
+                     'ShipDate': r.timestamp})
+    response.update({'data': data})
+    return JsonResponse(response)
 
+@login_required
 def test(request):
     values = {}
-    return values
+    return render(request, 'app/core/templates/home.html', values)
