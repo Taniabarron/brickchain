@@ -3,7 +3,8 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
 from app.core.utilis import _decrypt
-from app.seller.models import Property
+from app.seller.models import *
+from app.buyer.models import Token
 
 @login_required
 def tokens(request):
@@ -22,8 +23,33 @@ def detail(request, token):
     action_unique = []
     token_summary = []
     p = Property.objects.get(id=_decrypt(token))
+    image = PropertyImages.objects.filter(property=p).order_by('timestamp').values('path')[:1]
+    counter = Token.objects.filter(property=p).count()
+    stock = p.tokens - counter 
+    sales = counter * p.cost
     
-    response = {}
+    data.append(
+        {
+            "Id": token,
+            "Title": p.title,
+            "Description": p.description,
+            "Country": p.country,
+            "Image": image[0]['path'],
+            "CreateDate": p.timestamp.strftime("%d/%m/%Y"),
+            "Status": "hidden" if stock == 0 else "",
+            "Address": p.address,
+            "Tokens": p.tokens,
+            "Cost": p.cost,
+            "Type": p.property_type,
+            "Sales": sales,
+            "Stock": stock,
+            "Items": counter,
+        }
+    )
+    
+    response = {
+         "templates": data,
+    }
 
     return render(request, 'app/buyer/templates/detail.html', response)
 
