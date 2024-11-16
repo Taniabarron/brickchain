@@ -60,14 +60,12 @@ Resales
                             <div class="card card-custom card-shadowless">
                                 <div class="card-body p-0">
                                     <!--begin::Image-->
-                                    <span class="label label-light-{{ t.Color }} label-inline font-weight-bold "> Tokens Avaible {{ t.Stock }}!</span>
-                                    <p></p>
                                     <div class="overlay">
                                         <div class="overlay-wrapper rounded bg-light text-center">
                                             <img src="/static/app/media/{{ t.Image }}" alt="" class="card-img-top" style="max-height: 200px; object-fit: cover;"/>
                                         </div>
                                         <div class="overlay-layer">
-                                            <a href="{% url 'app.buyer:detail' token=t.Id %}" class="btn font-weight-bolder btn-sm btn-primary mr-2">Purchase</a>
+                                            <a href="{% url 'app.marketplace:detail' token=t.Id %}" class="btn font-weight-bolder btn-sm btn-primary mr-2">Purchase</a>
                                         </div>
                                     </div>
                                     <!--end::Image-->
@@ -85,11 +83,11 @@ Resales
                                         <a href="#" class="text-muted text-hover-primary">{{ t.Country}}</a>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-right">
-                                        <span class="text-dark-75 font-weight-bolder mr-2">Tokens:</span>
-                                        <a href="#" class="text-muted text-hover-primary align-right">{{ t.Tokens }}</a>                        
+                                        <span class="text-dark-75 font-weight-bolder mr-2">Costo:</span>
+                                        <a href="#" class="text-muted text-hover-primary align-right">{{ t.Cost }}</a>                        
                                     </div>
                                     <div class="d-flex justify-content-between align-items-right">
-                                        <span class="text-dark-75 font-weight-bolder mr-2">Owner:</span>
+                                        <span class="text-dark-75 font-weight-bolder mr-2">Seller:</span>
                                         <a href="#" class="text-muted text-hover-primary align-right">{{ t.Owner }}</a>                        
                                     </div>
                                     <!--end::Details-->
@@ -124,14 +122,12 @@ Resales
                             <div class="card card-custom card-shadowless">
                                 <div class="card-body p-0">
                                     <!--begin::Image-->
-                                    <span class="label label-light-{{ h.Color }} label-inline font-weight-bold "> Tokens Avaible {{ h.Stock }}!</span>
-                                    <p></p>
                                     <div class="overlay">
                                         <div class="overlay-wrapper rounded bg-light text-center">
                                             <img src="/static/app/media/{{ h.Image }}" alt="" class="card-img-top" style="max-height: 200px; object-fit: cover;"/>
                                         </div>
                                         <div class="overlay-layer">
-                                            <a href="{% url 'app.buyer:detail' token=h.Id %}" class="btn font-weight-bolder btn-sm btn-primary mr-2">Purchase</a>                                            
+                                            <a href="{% url 'app.marketplace:detail' token=h.Id %}" class="btn font-weight-bolder btn-sm btn-primary mr-2">Purchase</a>                                            
                                         </div>
                                     </div>
                                     <!--end::Image-->
@@ -149,11 +145,11 @@ Resales
                                         <a href="#" class="text-muted text-hover-primary">{{ h.Country}}</a>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-right">
-                                        <span class="text-dark-75 font-weight-bolder mr-2">Tokens:</span>
-                                        <a href="#" class="text-muted text-hover-primary align-right">{{ h.Tokens }}</a>                        
+                                        <span class="text-dark-75 font-weight-bolder mr-2">Cost:</span>
+                                        <a href="#" class="text-muted text-hover-primary align-right">{{ h.Cost }}</a>                        
                                     </div>
                                     <div class="d-flex justify-content-between align-items-right">
-                                        <span class="text-dark-75 font-weight-bolder mr-2">Owner:</span>
+                                        <span class="text-dark-75 font-weight-bolder mr-2">Seller:</span>
                                         <a href="#" class="text-muted text-hover-primary align-right">{{ h.Owner }}</a>                        
                                     </div>
                                     <!--end::Details-->
@@ -187,14 +183,12 @@ Resales
                             <div class="card card-custom card-shadowless">
                                 <div class="card-body p-0">
                                     <!--begin::Image-->
-                                    <span class="label label-light-{{ a.Color }} label-inline font-weight-bold "> Tokens Avaible {{ a.Stock }}!</span>
-                                    <p></p>
                                     <div class="overlay">
                                         <div class="overlay-wrapper rounded bg-light text-center">
                                             <img src="/static/app/media/{{ a.Image }}" alt="" class="card-img-top" style="max-height: 200px; object-fit: cover;"/>
                                         </div>
                                         <div class="overlay-layer">
-                                            <a href="{% url 'app.buyer:detail' token=a.Id %}" class="btn font-weight-bolder btn-sm btn-primary mr-2">Purchase</a>                                            
+                                            <a href="{% url 'app.marketplace:detail' token=a.Id %}" class="btn font-weight-bolder btn-sm btn-primary mr-2">Purchase</a>                                            
                                         </div>
                                     </div>
                                     <!--end::Image-->
@@ -212,11 +206,11 @@ Resales
                                         <a href="#" class="text-muted text-hover-primary">{{ a.Country}}</a>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-right">
-                                        <span class="text-dark-75 font-weight-bolder mr-2">Tokens:</span>
-                                        <a href="#" class="text-muted text-hover-primary align-right">{{ a.Tokens }}</a>                        
+                                        <span class="text-dark-75 font-weight-bolder mr-2">Cost:</span>
+                                        <a href="#" class="text-muted text-hover-primary align-right">{{ a.Cost }}</a>                        
                                     </div>
                                     <div class="d-flex justify-content-between align-items-right">
-                                        <span class="text-dark-75 font-weight-bolder mr-2">Owner:</span>
+                                        <span class="text-dark-75 font-weight-bolder mr-2">Seller:</span>
                                         <a href="#" class="text-muted text-hover-primary align-right">{{ a.Owner }}</a>                        
                                     </div>
                                     <!--end::Details-->
