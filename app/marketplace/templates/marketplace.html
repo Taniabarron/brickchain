@@ -1,18 +1,119 @@
 {% extends "app/core/templates/base/base.html" %}
 {% load static %}
 
-{% block title %} Dashboard {% endblock %}
+{% block title %} Property List {% endblock %}
 
 {% block head %}
 
 {% endblock %}
 
 {% block section %}
-Tokens
+Sales
 {% endblock %}
 
 {% block content %}
-<h1> hola </h1>
+<!--begin::Page Layout-->
+    <!--Check later it dosen't work-->
+    <div class="d-flex flex-row">
+        <div class="col-lg-4  mb-lg-0 mb-6">                            
+            <label >Title:</label>
+            <input class="form-control" type="text" id="search" placeholder="Titulo del documento"/>                                                       
+        </div>
+        <div class="col-lg-4  mb-lg-0 mb-6">                            
+            <label >Property Type:</label>
+            <select class="form-control datatable-input" id="kt_datatable_search_action">
+                <option value="">All</option>
+                {% for o in action %}
+                <option value = "{{o.action}}">{{ o.action }}</option>
+                {% endfor %}        						
+            </select>
+        </div>
+         
+        <div class="col-lg-4  mb-lg-0 mb-6">                            
+            <label >Date:</label>
+            <input class="form-control" type="date" placeholder="yyyy-mm-dd" id="kt_datepiker_pk1"/>                                                       
+        </div>
+    </div>
+</br>
+</br>
+<div class="d-flex flex-row">
+
+    <!--begin::Layout-->
+    <div class="flex-row-fluid ml-lg-8">
+        <!--begin::Card-->
+        <div class="card card-custom card-stretch gutter-b">
+            <div class="card-body">
+                <!--begin::Section-->
+                <div class="mb-11">
+                    <!--begin::Heading-->
+                    <div class="d-flex justify-content-between align-items-center mb-7">
+                        <h2 class="font-weight-bolder text-dark font-size-h3 mb-0">Land List</h2>
+                    </div>
+                    <!--end::Heading-->
+                    <!--begin::Products-->
+                    <div class="row">
+                        <!--begin::Product-->
+                        {% for t in land %}
+                        <p></p>
+                        <div class="col-md-4 col-xxl-4 col-lg-12" style="padding: 10px">
+                            <!--begin::Card-->
+                            <div class="card card-custom card-shadowless">
+                                <div class="card-body p-0">
+                                    <!--begin::Image-->
+                                    <span class="label label-light-{{ t.Color }} label-inline font-weight-bold "> Tokens Avaible {{ t.Stock }}!</span>
+                                    <p></p>
+                                    <div class="overlay">
+                                        <div class="overlay-wrapper rounded bg-light text-center">
+                                            <img src="/static/app/media/{{ t.Image }}" alt="" class="card-img-top" style="max-height: 200px; object-fit: cover;"/>
+                                        </div>
+                                        <div class="overlay-layer">
+                                            <a href="{% url 'app.buyer:detail' token=t.Id %}" class="btn font-weight-bolder btn-sm btn-primary mr-2">Purchase</a>
+                                        </div>
+                                    </div>
+                                    <!--end::Image-->
+                                    <!--begin::Details-->
+                                    <div class="text-center mt-5 mb-md-0 mb-lg-5 mb-md-0 mb-lg-5 mb-lg-0 mb-5 d-flex flex-column">
+                                        <a href="#" class="font-size-h5 font-weight-bolder text-dark-75 text-hover-primary mb-1">{{ t.Title }}</a>
+                                        <span class="font-size-lg">{{ t.Address }}</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-cente my-1">
+                                        <span class="text-dark-75 font-weight-bolder mr-2">Fecha de creación:</span>
+                                        <a href="#" class="text-muted text-hover-primary">{{ t.CreateDate}}</a>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="text-dark-75 font-weight-bolder mr-2">Country</span>
+                                        <a href="#" class="text-muted text-hover-primary">{{ t.Country}}</a>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-right">
+                                        <span class="text-dark-75 font-weight-bolder mr-2">Tokens:</span>
+                                        <a href="#" class="text-muted text-hover-primary align-right">{{ t.Tokens }}</a>                        
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-right">
+                                        <span class="text-dark-75 font-weight-bolder mr-2">Owner:</span>
+                                        <a href="#" class="text-muted text-hover-primary align-right">{{ t.Owner }}</a>                        
+                                    </div>
+                                    <!--end::Details-->
+                                </div>
+                            </div>
+                            </br>   
+                            <div class="separator separator-solid separator-border-1 separator-dark"></div>
+                            <!--end::Card-->
+                        </div>
+                        
+                        {% endfor %} 
+                        <!--end::Product-->
+                        
+                    </div>
+                    <!--end::Products-->
+                </div>
+                <!--end::Section-->
+            </div>
+        </div>
+        <!--end::Card-->
+    </div>
+    <!--end::Layout-->
+</div>
+<!--end::Page Layout-->
 {% endblock %}
 
 {% block javascript %}

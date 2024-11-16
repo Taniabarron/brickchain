@@ -24,9 +24,7 @@ def properties(request):
         image = PropertyImages.objects.filter(property=p).order_by('timestamp').values('path')[:1]
         counter = Token.objects.filter(property=p).count()
         country = Country.objects.get(code=p.country)
-        print(counter)
         stock = p.tokens - counter 
-        print(stock)
         data.append(
             {
                 "Id": _encrypt(p.id),
@@ -53,10 +51,6 @@ def properties(request):
     }
     return render(request, 'app/seller/templates/properties.html', response)
 
-@login_required
-def status_properties(request):
-    values = {}
-    return values
 
 @login_required
 def form_properties(request):
@@ -73,10 +67,7 @@ def add_properties(request):
         data = request.POST
         files = request.FILES
 
-        print("Datos del formulario:", data)
-        print("Archivos recibidos:", files)
         if validate_data(data):
-            print(1234)
             property = Property.objects.create(title=data.get('title'),
                                             address=data.get('address'),
                                             city=data.get('city'),
@@ -149,7 +140,7 @@ def add_properties(request):
             save_logbook("New property listing.", request.user.id) 
             
             #change response
-            response = {"code": 200, "msg": "User created, verify your account!"}
+            response = {"code": 200, "msg": "Property created!"}
         else:
             response = {"code": 401, "msg": "Some of the information contains invalid characters"}
     except Exception as e:
