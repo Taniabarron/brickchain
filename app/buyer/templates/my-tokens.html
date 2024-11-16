@@ -1,20 +1,135 @@
 {% extends "app/core/templates/base/base.html" %}
 {% load static %}
 
-{% block title %} Dashboard {% endblock %}
+{% block title %} My Tokens {% endblock %}
 
 {% block head %}
 
 {% endblock %}
 
 {% block section %}
-Tokens
+My Tokens
 {% endblock %}
 
 {% block content %}
-<h1> hola </h1>
+<!--begin::Page Layout-->
+    <!--Check later it dosen't work-->
+    <div class="d-flex flex-row">
+        <div class="col-lg-4  mb-lg-0 mb-6">                            
+            <label >Title:</label>
+            <input class="form-control" type="text" id="search" placeholder="Titulo del documento"/>                                                       
+        </div>
+        <div class="col-lg-4 mb-lg-0 mb-6">                            
+            <label>Property Type:</label>
+            <select class="form-control datatable-input" id="propertyType">
+                <option value="All">All</option>
+                {% for o in action %}
+                <option value="{{ o.action }}">{{ o.action }}</option>
+                {% endfor %}        						
+            </select>
+        </div>
+         
+        <div class="col-lg-4  mb-lg-0 mb-6">                            
+            <label >Date:</label>
+            <input class="form-control" type="date" placeholder="yyyy-mm-dd" id="kt_datepiker_pk1"/>                                                       
+        </div>
+    </div>
+</br>
+</br>
+<div class="d-flex flex-row">
+
+    <!--begin::Layout-->
+    <div class="flex-row-fluid ml-lg-8">
+        <!--begin::Card-->
+        <div class="card card-custom card-stretch gutter-b">
+            <div class="card-body">
+                <!--begin::Section-->
+                <div class="mb-11">
+                    <!--begin::Heading-->
+                    <div class="d-flex justify-content-between align-items-center mb-7">
+                        <h2 class="font-weight-bolder text-dark font-size-h3 mb-0">Property List</h2>
+                    </div>
+                    <!--end::Heading-->
+                    <!--begin::Products-->
+                    <div class="row">
+                        <!--begin::Product-->
+                        {% for t in templates %}
+                        <p></p>
+                        <div class="col-md-4 col-xxl-4 col-lg-12" style="padding: 10px">
+                            <!--begin::Card-->
+                            <div class="card card-custom card-shadowless">
+                                <div class="card-body p-0">
+                                    <!--begin::Image-->
+                                    <ul class="nav nav-light-info  nav-pills nav-fill" id="myTab" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" href="#" tabindex="-1" aria-disabled="true" >{{ t.Type}}</a>
+                                        </li>
+                                        <li class="nav-item"></li>
+                                        <li class="nav-item"></li>
+                                        <li class="nav-item"></li>
+                                        <li class="nav-item"><a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Publish</a></li> 
+                                        <li class="nav-item">
+                                            <span class="switch switch-sm">
+                                                <label>
+                                                {% csrf_token %}
+                                                <input type="checkbox" {{ t.Status}} name="select" id="toggleSwitch" onchange="onSwitch(this, '{{t.Id}}')"/>
+                                                <span></span>
+                                                </label>
+                                            </span>
+                                        </li>
+                                        
+                                    </ul>
+                                             
+                                    <p></p>
+                                    <div class="overlay">
+                                        <div class="overlay-wrapper rounded bg-light text-center">
+                                            <img src="/static/app/media/{{ t.Image }}" alt="" class="card-img-top" style="max-height: 200px; object-fit: cover;"/>
+                                        </div>
+                                        <div class="overlay-layer">
+                                            <a href="{% url 'app.buyer:detail' token=t.Id %}" class="btn font-weight-bolder btn-sm btn-primary mr-2">Detail View</a>
+                                        </div>
+                                    </div>
+                                    <!--end::Image-->
+                                    <!--begin::Details-->
+                                    <div class="text-center mt-5 mb-md-0 mb-lg-5 mb-md-0 mb-lg-5 mb-lg-0 mb-5 d-flex flex-column">
+                                        <a href="#" class="font-size-h5 font-weight-bolder text-dark-75 text-hover-primary mb-1">{{ t.Title }}</a>
+                                        <span class="font-size-lg">{{ t.Address }}</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-cente my-1">
+                                        <span class="text-dark-75 font-weight-bolder mr-2">Create Date:</span>
+                                        <a href="#" class="text-muted text-hover-primary">{{ t.CreateDate}}</a>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="text-dark-75 font-weight-bolder mr-2">Country</span>
+                                        <a href="#" class="text-muted text-hover-primary">{{ t.Country}}</a>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-right">
+                                        <span class="text-dark-75 font-weight-bolder mr-2">Avaible tokens:</span>
+                                        <a href="#" class="text-muted text-hover-primary align-right">{{ t.Stock }}/{{ t.Tokens }}</a>                        
+                                    </div>
+                                    <!--end::Details-->
+                                </div>
+                            </div>
+                            <!--end::Card-->
+                        </div>
+                        {% endfor %} 
+                        <!--end::Product-->
+                        
+                    </div>
+                    <!--end::Products-->
+                </div>
+                <!--end::Section-->
+            </div>
+        </div>
+        <!--end::Card-->
+    </div>
+    <!--end::Layout-->
+</div>
+<!--end::Page Layout-->
 {% endblock %}
 
 {% block javascript %}
-
+<!--begin::Page Scripts(used by this page)-->
+<script src="{% static 'app/seller/static/js/properties-2.js' %}"></script> 
+<!--end::Page Scripts-->
 {% endblock %}
