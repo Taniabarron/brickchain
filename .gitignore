@@ -14,7 +14,7 @@ opt/
 *.log
 
 # Media files (uploads)
-#media/
+app/media/
 
 # Static files (collected during deployment)
 staticfiles/
