@@ -7,13 +7,15 @@ from django.http import JsonResponse
 from django.contrib.sessions.models import Session
 from django.shortcuts import render, redirect
 
+from app.blockchain.script import *
 from app.buyer.models import Token
 from app.core.models import *
-from app.core.utilis import SendMailMailJet, _checkVarchar, _encrypt, render_template, validate_data
+from app.core.utilis import SendMailMailJet, _checkVarchar, _createWallet, _encrypt, render_template, validate_data
 from app.seller.models import PropertyImages, Property
 
 
 def index(request):
+  
     land = []
     house = []
     apartment = []
@@ -89,17 +91,22 @@ def account_create(request):
         data = request.POST
         if validate_data(data):
             if not user_exists(data.get('email').lower()):
+                token_pass = uuid.uuid4()
+                wallet = _createWallet(data.get('email').lower())
+                
                 user = User.objects.create_user(username=data.get('email').lower(),
                                             email=data.get('email').lower(),
                                             first_name=data.get('fullname'),
                                             password=data.get('password'))
 
-                token_pass = uuid.uuid4()
+               
                 Profile.objects.create(user=user,
                                        account_status=False,
                                        token_pass=token_pass,
                                        user_type=data.get('type'),
-                                       terms=data.get('agree') == "on")
+                                       terms=data.get('agree') == "on",
+                                       private_key=_encrypt(wallet['data']['phrase']),
+                                       wallet_id=wallet.get(wallet['data']['wallet_id']))
                 
                 #check email
                 html = render_template('check-email')
@@ -110,6 +117,7 @@ def account_create(request):
                                 email_to=[{"Email": data.get('email').lower(), 
                                            "Name": data.get('fullname')}])
                 save_logbook("Account creation", user.id)
+                
                 response = {"code": 200, "msg": "User created, verify your account!"}
             else:
                 response = {"code": 400, "msg": "User previously registered."}

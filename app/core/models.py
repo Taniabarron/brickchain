@@ -10,6 +10,8 @@ class Profile(models.Model):
     user_type = models.CharField(max_length=100, blank=True, null=True)
     token = models.CharField(max_length=100, verbose_name="Token", blank=True, null=True)
     token_pass = models.UUIDField(primary_key=False, editable=False, null=True, blank=True)
+    private_key = models.CharField(max_length=100, verbose_name="pk", blank=True, null=True)
+    wallet_id = models.CharField(max_length=100, verbose_name="wallet", blank=True, null=True)
     account_status = models.BooleanField()
     
 class Logbook(models.Model):

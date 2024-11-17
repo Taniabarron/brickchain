@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render
 
+from app.blockchain.script import create_property
 from app.buyer.models import Token
 from app.core.models import Country
 from app.core.utilis import _decrypt, _encrypt, validate_data
@@ -68,8 +69,9 @@ def add_properties(request):
     try:
         data = request.POST
         files = request.FILES
-
+        property = []
         if validate_data(data):
+            
             property = Property.objects.create(title=data.get('title'),
                                             address=data.get('address'),
                                             city=data.get('city'),
@@ -138,6 +140,16 @@ def add_properties(request):
                     )
             
             #Blockchain
+            property_info = {
+                'name': data.get('title'),
+                'price': int(data.get('cost')),
+                'asset': '0xE6d34cebcAD400C4282AFd357b0E1497525dF082',
+                'tokenUri': 'property',
+                'totalAmount': int(data.get('tokens')),
+                'seller': '0xE6291E6FBAA68e0BFAb7c05a7681e38b329BFcAD'
+            }
+            tx_hash = create_property('0xE6291E6FBAA68e0BFAb7c05a7681e38b329BFcAD', property_info)
+            print(tx_hash)
             
             save_logbook("New property listing.", request.user.id) 
             

@@ -100,3 +100,13 @@ def _encrypt(data):
     number_bytes = str(data).encode('utf-8')
     result = base64.b64encode(number_bytes).decode('utf-8')
     return result
+
+def _createWallet(owner):
+    url_api = "https://apis.bloxtek.com/apis_wallet/v1/wallet/did"
+    headers = {"Authorization": "Bearer {}".format("d988a47861c13cdced2622e42fa7489171c274b7be91762e7f6ce210ea20cb5f")}
+    dumps = ({
+        "ownerName": owner,
+    })
+    r = requests.post(url=url_api, headers=headers, data=dumps, params=dumps, verify=False)
+    data = r.json()
+    return data
